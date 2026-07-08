@@ -1,0 +1,72 @@
+name: produccion
+
+on:
+  push:
+    branches:
+      - nombre-de-tu-rama-de-produccion
+
+jobs:
+  test:
+    runs-on: [self-hosted, debian]
+    environment: produccion
+    container:
+      image: ggoitea/php-for-laravel:8.3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Increase PHP memory limit
+        run: echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory-limit.ini
+
+      - name: Install dependencies
+        run: |
+          apk add nodejs npm curl
+          curl -sS https://getcomposer.org/installer | php
+          mv composer.phar /usr/local/bin/composer
+          docker-php-ext-install exif
+        
+      - name: Set up environment and run tests
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          npm install
+          npm run build
+          cp .env.example .env
+          php artisan key:generate
+          php artisan test -p
+
+  deploy:
+    needs: test
+    runs-on: [self-hosted, debian]
+    environment: produccion
+    container:
+      image: ggoitea/php-for-laravel:8.3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: |
+          apk add nodejs npm curl
+          curl -sS https://getcomposer.org/installer | php
+          mv composer.phar /usr/local/bin/composer
+          docker-php-ext-install exif
+      
+      - name: Build assets
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          npm install
+          npm run build
+          
+      - name: Deploy to production
+        if: success()
+        run: |
+            apk add openssh-client
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+            chmod 600 ~/.ssh/id_ed25519  
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 -p ${{ vars.SSH_PORT }} ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }} "rm -Rfd ${{ vars.APP_FULL_PATH }}/public/build"
+            scp -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 -P ${{ vars.SSH_PORT }} -r ./public/build ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }}:${{ vars.APP_FULL_PATH }}/public/
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 -p ${{ vars.SSH_PORT }} ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }} "cd ${{ vars.APP_FULL_PATH }} && git pull && php8.3 ../composer.phar update --no-dev --optimize-autoloader && php8.3 artisan migrate --force && php8.3 artisan db:seed --force"
+           
