@@ -12,6 +12,7 @@ import { BottomNav } from './adaptative/BottomNav';
 import { FloatingActionButton } from './adaptative/FloatingActionButton';
 import { Header } from './adaptative/Header';
 import AppLayout from './app-layout';
+import { FloatingAssistant } from '@/components/FloatingAssistant';
 
 const ZonaActionBuilder = ({
     quickActions,
@@ -130,6 +131,9 @@ export function AdaptiveLayout({
                         (action) => action.show !== false,
                     )}
                 />
+
+                {/* Floating draggable assistant bubble */}
+                <FloatingAssistant />
 
                 {/* Bottom Navigation */}
                 <BottomNav items={accesoRapido} />

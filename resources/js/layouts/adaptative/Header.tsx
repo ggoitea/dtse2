@@ -1,8 +1,15 @@
 import type { ComponentType, ReactNode } from 'react';
 import { createElement } from 'react';
-import { Layers } from 'lucide-react';
+import { Layers, Globe } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface HeaderProps {
     title?: string;
@@ -11,6 +18,12 @@ interface HeaderProps {
 }
 
 export function Header({ title, icon, actions }: HeaderProps) {
+    const handleLanguageChange = (locale: 'es' | 'en' | 'qu' | 'pt') => {
+        // TODO: Implementar cambio de idioma
+        // Ejemplo: router.post(route('language.set'), { locale })
+        console.log(`Changing language to: ${locale}`);
+    };
+
     return (
         <header
             id="header"
@@ -18,25 +31,8 @@ export function Header({ title, icon, actions }: HeaderProps) {
         >
             <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
                 <div className="flex items-center gap-3">
-                    <div
-                        id="user-avatar"
-                        className={cn(
-                            'h-8 w-8 shrink-0 overflow-hidden rounded border border-card-foreground/10 bg-linear-to-tr from-orange-400 to-rose-400',
-                            'flex items-center justify-center',
-                        )}
-                    >
-                        {icon ? (
-                            createElement(icon, {
-                                size: 25,
-                                className: 'text-white',
-                            })
-                        ) : (
-                            <Layers
-                                size={'32'}
-                                className="text-card-foreground"
-                            />
-                        )}
-                    </div>
+                    <img src="/img/LogoDTSE2.png" alt="Logo" className="h-12 " />
+
                     {title && (
                         <h1
                             id="header-title"
@@ -49,6 +45,37 @@ export function Header({ title, icon, actions }: HeaderProps) {
 
                 <div id="header-actions" className="flex items-center gap-2">
                     {actions || <div></div>}
+
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="rounded-full"
+                                aria-label="Seleccionar idioma"
+                            >
+                                <Globe className="h-5 w-5" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => handleLanguageChange('es')}>
+                                <span className="mr-2">🇪🇸</span>
+                                Español
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleLanguageChange('en')}>
+                                <span className="mr-2">🇺🇸</span>
+                                English
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleLanguageChange('qu')}>
+                                <span className="mr-2">🇵🇪</span>
+                                Quechua
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleLanguageChange('pt')}>
+                                <span className="mr-2">🇧🇷</span>
+                                Português
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
         </header>
