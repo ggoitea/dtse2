@@ -10,6 +10,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
     title?: string;
@@ -18,10 +19,9 @@ interface HeaderProps {
 }
 
 export function Header({ title, icon, actions }: HeaderProps) {
+    const { i18n } = useTranslation();
     const handleLanguageChange = (locale: 'es' | 'en' | 'qu' | 'pt') => {
-        // TODO: Implementar cambio de idioma
-        // Ejemplo: router.post(route('language.set'), { locale })
-        console.log(`Changing language to: ${locale}`);
+        i18n.changeLanguage(locale);
     };
 
     return (
