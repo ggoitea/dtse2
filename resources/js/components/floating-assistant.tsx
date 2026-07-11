@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, X, Send, Compass, User, Globe, MessageSquare, MapPin } from 'lucide-react';
+import { Sparkles, X, Send, Compass, User } from 'lucide-react';
 import { ChatMessage } from '@/types/chat';
 
 interface FloatingAssistantProps {
@@ -110,21 +110,29 @@ export function FloatingAssistant({ onSuggestCity }: FloatingAssistantProps) {
       >
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-tr from-[#00327d]/90 to-[#0047ab]/90 backdrop-blur-md text-white flex items-center justify-center shadow-[0_8px_32px_rgba(0,71,171,0.3)] border-2 border-white/20 active:shadow-md focus:outline-none"
+          className="relative w-25 h-25 md:w-[68px] md:h-[68px] rounded-full bg-gradient-to-tr from-[#00327d]/90 to-[#0047ab]/90 backdrop-blur-md text-white flex items-center justify-center shadow-[0_8px_32px_rgba(0,71,171,0.3)] border-2 border-white/20 active:shadow-md focus:outline-none overflow-hidden"
           title="Abrir Asistente DTSE"
           id="assistant-trigger-btn"
         >
+          {/* Video background */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute -inset-0.1 w-26 h-26 object-cover rounded-full"
+          >
+            <source src="/vid/uritu_mundial.webm" type="video/webm" />
+          </video>
+
+          {/* Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#00327d]/40 to-[#0047ab]/40 rounded-full" />
+
           {/* Animated pulsing outer rings */}
           <span className="absolute inset-0 rounded-full bg-white/20 animate-ping opacity-40 -z-10 pointer-events-none" />
           <span className="absolute -inset-1 rounded-full border border-white/20 animate-pulse pointer-events-none" />
 
-          {/* Active indicator */}
-          <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-[#fcd400] rounded-full border-2 border-[#00327d] flex items-center justify-center animate-bounce">
-            <Sparkles className="w-2 h-2 text-[#705d00] stroke-[3]" />
-          </span>
 
-          <Globe className="w-7 h-7 md:w-8 md:h-8 text-white animate-[spin_40s_linear_infinite]" />
-          <MessageSquare className="absolute w-4.5 h-4.5 text-[#ffe16d] stroke-[2.5]" />
         </button>
       </motion.div>
 
@@ -190,8 +198,8 @@ export function FloatingAssistant({ onSuggestCity }: FloatingAssistantProps) {
                     <div className="flex flex-col">
                       <div
                         className={`p-3 rounded-2xl text-sm leading-relaxed shadow-sm ${isAssistant
-                            ? 'bg-white/60 text-gray-800 rounded-tl-none border border-white/40 backdrop-blur-sm'
-                            : 'bg-[#00327d]/90 text-white rounded-tr-none backdrop-blur-sm'
+                          ? 'bg-white/60 text-gray-800 rounded-tl-none border border-white/40 backdrop-blur-sm'
+                          : 'bg-[#00327d]/90 text-white rounded-tr-none backdrop-blur-sm'
                           }`}
                       >
                         <p className="whitespace-pre-line">{msg.text}</p>
@@ -261,8 +269,8 @@ export function FloatingAssistant({ onSuggestCity }: FloatingAssistantProps) {
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
                 className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all ${inputValue.trim() && !isLoading
-                    ? 'bg-[#00327d] text-white shadow-md active:scale-95'
-                    : 'bg-gray-100 text-gray-300'
+                  ? 'bg-[#00327d] text-white shadow-md active:scale-95'
+                  : 'bg-gray-100 text-gray-300'
                   }`}
                 id="assistant-send-btn"
               >
