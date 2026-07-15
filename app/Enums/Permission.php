@@ -16,50 +16,67 @@ enum Permission: string
     case RolesEdit = 'roles.edit';
     case RolesDelete = 'roles.delete';
 
-    /**
-     * Get human-readable label for the permission.
-     */
+    // Sitios
+    case SitiosView = 'sitios.view';
+    case SitiosCreate = 'sitios.create';
+    case SitiosEdit = 'sitios.edit';
+    case SitiosDelete = 'sitios.delete';
+
+    // Eventos
+    case EventosView = 'eventos.view';
+    case EventosCreate = 'eventos.create';
+    case EventosEdit = 'eventos.edit';
+    case EventosDelete = 'eventos.delete';
+
+    // Paquetes
+    case PaquetesView = 'paquetes.view';
+    case PaquetesCreate = 'paquetes.create';
+    case PaquetesEdit = 'paquetes.edit';
+    case PaquetesDelete = 'paquetes.delete';
+
     public function label(): string
     {
         return match ($this) {
-            // Users
             self::UsersView => 'Ver usuarios',
             self::UsersCreate => 'Crear usuarios',
             self::UsersEdit => 'Editar usuarios',
             self::UsersDelete => 'Eliminar usuarios',
-
-            // Roles
             self::RolesView => 'Ver roles',
             self::RolesCreate => 'Crear roles',
             self::RolesEdit => 'Editar roles',
             self::RolesDelete => 'Eliminar roles',
+            self::SitiosView => 'Ver sitios',
+            self::SitiosCreate => 'Crear sitios',
+            self::SitiosEdit => 'Editar sitios',
+            self::SitiosDelete => 'Eliminar sitios',
+            self::EventosView => 'Ver eventos',
+            self::EventosCreate => 'Crear eventos',
+            self::EventosEdit => 'Editar eventos',
+            self::EventosDelete => 'Eliminar eventos',
+            self::PaquetesView => 'Ver paquetes',
+            self::PaquetesCreate => 'Crear paquetes',
+            self::PaquetesEdit => 'Editar paquetes',
+            self::PaquetesDelete => 'Eliminar paquetes',
         };
     }
 
-    /**
-     * Get the group name for the permission.
-     */
     public function group(): string
     {
         return match ($this) {
             self::UsersView, self::UsersCreate, self::UsersEdit, self::UsersDelete => 'Usuarios',
             self::RolesView, self::RolesCreate, self::RolesEdit, self::RolesDelete => 'Roles',
+            self::SitiosView, self::SitiosCreate, self::SitiosEdit, self::SitiosDelete => 'Sitios',
+            self::EventosView, self::EventosCreate, self::EventosEdit, self::EventosDelete => 'Eventos',
+            self::PaquetesView, self::PaquetesCreate, self::PaquetesEdit, self::PaquetesDelete => 'Paquetes',
         };
     }
 
-    /**
-     * Get all permission values as an array.
-     *
-     * @return array<string>
-     */
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
     }
 
     /**
-     * Get all permissions as options for forms.
-     *
      * @return array<array{value: string, label: string, group: string}>
      */
     public static function options(): array
@@ -75,8 +92,6 @@ enum Permission: string
     }
 
     /**
-     * Get permissions grouped by their group name.
-     *
      * @return array<string, array<array{value: string, label: string}>>
      */
     public static function groupedOptions(): array

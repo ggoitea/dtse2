@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -27,6 +28,9 @@ use Spatie\Permission\Traits\HasRoles;
     'username',
     'email',
     'password',
+    'google_id',
+    'google_token',
+    'google_refresh_token',
 ])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
@@ -49,6 +53,18 @@ class User extends Authenticatable
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    // Relationships
+
+    public function datoPersonal(): HasOne
+    {
+        return $this->hasOne(UserDatoPersonal::class);
+    }
+
+    public function iaCredito(): HasOne
+    {
+        return $this->hasOne(UserIaCredito::class);
     }
 
     // Scopes

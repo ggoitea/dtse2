@@ -1,0 +1,14 @@
+{
+    "title": "Explorar Mapa",
+    "subtitle": "Encontre locais de interesse perto de você",
+    "ubicacion_buscando": "Obtendo sua localização...",
+    "ubicacion_error": "Não foi possível obter sua localização",
+    "radio_ampliar": "Aumentar raio",
+    "radio_reducir": "Reduzir raio",
+    "sitios_encontrados": "locais encontrados",
+    "sin_sitios_cercanos": "Nenhum local próximo",
+    "ver_detalles": "Ver detalhes",
+    "tu_ubicacion": "Sua localização",
+    "distancia": "Distância",
+    "km": "km"
+}

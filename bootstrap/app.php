@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\DatosPersonalMiddleware;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
@@ -23,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => PermissionMiddleware::class,
             'role' => RoleMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
+            'datos-personales' => DatosPersonalMiddleware::class,
         ]);
 
         $middleware->web(append: [

@@ -5,6 +5,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
 import i18n from "./config/i18n"; // Import the i18n configuration
 import { I18nextProvider } from 'react-i18next';
+import 'leaflet/dist/leaflet.css';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

@@ -1,0 +1,14 @@
+{
+    "title": "Explore Map",
+    "subtitle": "Find places of interest near you",
+    "ubicacion_buscando": "Getting your location...",
+    "ubicacion_error": "Could not get your location",
+    "radio_ampliar": "Expand radius",
+    "radio_reducir": "Reduce radius",
+    "sitios_encontrados": "sites found",
+    "sin_sitios_cercanos": "No nearby sites",
+    "ver_detalles": "See details",
+    "tu_ubicacion": "Your location",
+    "distancia": "Distance",
+    "km": "km"
+}

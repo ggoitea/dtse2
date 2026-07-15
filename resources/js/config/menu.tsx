@@ -1,93 +1,45 @@
 import {
-    BadgeAlert,
-    Bell,
-    Building2,
-    CalendarDays,
-    ChartArea,
     Compass,
-    DoorOpen,
     Heart,
-    Home,
-    LayoutGrid,
     Map,
-    Settings,
-    ShieldCheck,
-    UserCog2,
+    Sparkles,
 } from 'lucide-react';
 
 import type { NavItemBottomMobile } from '@/layouts/adaptative/BottomNav';
-import { dashboard, launcher } from '@/routes';
-import type { NavItem } from '@/types';
+import { landing } from '@/routes';
 
 export const accesoRapido: NavItemBottomMobile[] = [
-    // Comun
     {
-        title: 'Explorar',
-        href: launcher(),
+        title: 'Novedades',
+        href: landing(),
         icon: Compass,
         isActive: false,
-        hasRole: ['owner', 'propietario', 'security'],
-    },
-    {
-        title: 'Eventos',
-        href: dashboard(),
-        icon: CalendarDays,
-        isActive: false,
-        hasRole: ['owner', 'propietario', 'security'],
     },
     {
         title: 'Mapa',
-        href: launcher(),
+        href: '/sitios',
         icon: Map,
         isActive: false,
-        hasRole: ['owner', 'propietario', 'security'],
+    },
+    {
+        title: 'Uritu',
+        href: '/',
+        icon: Sparkles,
+        isActive: false,
     },
     {
         title: 'Favoritos',
-        href: launcher(),
+        href: '/',
         icon: Heart,
         isActive: false,
-        hasRole: ['owner', 'propietario', 'security'],
     },
-
-
-];
-
-export const menuPrincipalBarrio: NavItem[] = [
-    {
-        title: 'Tablero',
-        href: dashboard(),
-        icon: LayoutGrid,
-        hasRole: ['owner'],
-    },
-    // {
-    //     title: 'Propiedades',
-    //     href: propiedades.index(),
-    //     icon: Building2,
-    //     hasRole: ['owner'],
-    // },
-    // {
-    //     title: 'Registro de accesos',
-    //     href: RegistroDeAccesos.index(),
-    //     icon: DoorOpen,
-    //     hasRole: ['owner'],
-    // },
-    // {
-    //     title: 'Registro de reclamos',
-    //     href: RegistroDeReclamos.index(),
-    //     icon: BadgeAlert,
-    //     hasRole: ['owner'],
-    // },
 ];
 
 export interface MenuGroup {
     label: string;
-    items: NavItem[];
+    items: [];
 }
 
-export const menuGroups: MenuGroup[] = [
-    {
-        label: 'Barrio',
-        items: menuPrincipalBarrio,
-    },
-];
+export const menuPrincipalBarrio: [] = [];
+
+export const menuGroups: MenuGroup[] = [];
