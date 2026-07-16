@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 // import { landing } from '@/routes';
 
 type Sitio = {
@@ -67,12 +68,72 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
     };
 
     return (
+        <AdaptiveLayout>
+            holsdskdl
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+            <div>dklskdl</div>
+        </AdaptiveLayout>
+    )
+
+    return (
         <>
             <Head title={t('hero_title')} />
 
             <div className="min-h-screen bg-background">
                 {/* Hero */}
-                <section className="bg-gradient-to-br from-primary/10 via-background to-primary/5 px-4 py-16 text-center">
+                <section className="bg-linear-to-br from-primary/10 via-background to-primary/5 px-4 py-16 text-center">
                     <h1 className="mb-3 text-3xl font-bold text-foreground">
                         {t('hero_title')}
                     </h1>

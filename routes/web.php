@@ -8,10 +8,10 @@ use App\Http\Controllers\NovedadesController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
-Route::get('/', [LandingController::class, 'index'])->name('home');
-Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
+Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/novedades', [NovedadesController::class, 'index'])->name('novedades');
 Route::get('/sitios', [MapaController::class, 'index'])->name('sitios.mapa');
+Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
 
 // API for map data (JSON responses for react-leaflet)
 Route::get('/sitios/data', [MapaController::class, 'data'])->name('sitios.data');
@@ -29,5 +29,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/platform.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/platform.php';

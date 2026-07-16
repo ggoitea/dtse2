@@ -14,6 +14,7 @@ export function useMenu() {
         () =>
             accesoRapidoData.filter(
                 (item) =>
+                    (!item.can && !item.hasRole) ||
                     (item.can && !item.hasRole && canAny(item.can)) ||
                     (!item.can && item.hasRole && hasAnyRole(item.hasRole)) ||
                     (item.can &&
@@ -31,6 +32,7 @@ export function useMenu() {
                     ...group,
                     items: group.items.filter((item) => {
                         return (
+                            (!item.can && !item.hasRole)||
                             (item.can && !item.hasRole && canAny(item.can)) ||
                             (!item.can &&
                                 item.hasRole &&

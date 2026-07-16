@@ -1,31 +1,33 @@
-import { Compass, Heart, Map, Sparkles } from 'lucide-react';
+import { Compass, Contact2, Heart, Map, MessageCircle, Sparkles } from 'lucide-react';
 
 import type { NavItemBottomMobile } from '@/layouts/adaptative/BottomNav';
 import { landing } from '@/routes';
+import { novedades } from '@/routes'
+import { mapa } from '@/routes/sitios'
 
 export const accesoRapido: NavItemBottomMobile[] = [
     {
         title: 'Novedades',
-        href: landing(),
+        href: novedades(),
         icon: Compass,
         isActive: false,
     },
     {
         title: 'Mapa',
-        href: '/sitios',
+        href: mapa(),
         icon: Map,
         isActive: false,
     },
     {
-        title: 'Uritu',
+        title: 'Paquete tursitico',
         href: '/',
-        icon: Sparkles,
+        icon: Heart,
         isActive: false,
     },
     {
-        title: 'Favoritos',
+        title: 'Contactanos',
         href: '/',
-        icon: Heart,
+        icon: MessageCircle,
         isActive: false,
     },
 ];

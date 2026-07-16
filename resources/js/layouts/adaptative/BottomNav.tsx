@@ -21,6 +21,7 @@ interface BottomNavProps {
 }
 
 export function BottomNav({ items }: BottomNavProps) {
+    console.log(items)
     const { urlIsActive } = useActiveUrl();
     const { canAny, hasAnyRole } = usePermissions();
 
