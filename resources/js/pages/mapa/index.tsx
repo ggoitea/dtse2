@@ -33,31 +33,37 @@ function useSitiosFetcher() {
     const [loading, setLoading] = useState(true);
     const abortRef = useRef<AbortController | null>(null);
 
-    const fetchSitios = useCallback(async (lat: number, lng: number, radio: number) => {
-        abortRef.current?.abort();
-        abortRef.current = new AbortController();
+    const fetchSitios = useCallback(
+        async (lat: number, lng: number, radio: number) => {
+            abortRef.current?.abort();
+            abortRef.current = new AbortController();
 
-        setLoading(true);
+            setLoading(true);
 
-        try {
-            const response = await fetch(`/sitios/data?lat=${lat}&lng=${lng}&radio=${radio}`, {
-                signal: abortRef.current.signal,
-            });
+            try {
+                const response = await fetch(
+                    `/sitios/data?lat=${lat}&lng=${lng}&radio=${radio}`,
+                    {
+                        signal: abortRef.current.signal,
+                    },
+                );
 
-            if (response.ok) {
-                const data = await response.json();
-                setSitios(data);
+                if (response.ok) {
+                    const data = await response.json();
+                    setSitios(data);
+                }
+            } catch (e) {
+                if (e instanceof DOMException && e.name === 'AbortError') {
+                    return;
+                }
+
+                console.error('Error fetching sitios');
+            } finally {
+                setLoading(false);
             }
-        } catch (e) {
-            if (e instanceof DOMException && e.name === 'AbortError') {
-                return;
-            }
-
-            console.error('Error fetching sitios');
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+        },
+        [],
+    );
 
     return { sitios, loading, fetchSitios };
 }
@@ -98,17 +104,28 @@ export default function MapaIndex() {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (pos) => {
-                    setPosition({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-                    fetchSitios(pos.coords.latitude, pos.coords.longitude, radio);
+                    setPosition({
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                    });
+                    fetchSitios(
+                        pos.coords.latitude,
+                        pos.coords.longitude,
+                        radio,
+                    );
                 },
                 () => {
-                    fetchSitios(defaultPosition.lat, defaultPosition.lng, radio);
+                    fetchSitios(
+                        defaultPosition.lat,
+                        defaultPosition.lng,
+                        radio,
+                    );
                 },
             );
         } else {
             fetchSitios(defaultPosition.lat, defaultPosition.lng, radio);
         }
-    }, []);
+    }, [fetchSitios, radio]);
 
     useEffect(() => {
         if (!initialLoadDone.current) {
@@ -146,16 +163,26 @@ export default function MapaIndex() {
                     {sitios.map((sitio) => (
                         <Marker
                             key={sitio.id}
-                            position={[parseFloat(sitio.latitud), parseFloat(sitio.longitud)]}
+                            position={[
+                                parseFloat(sitio.latitud),
+                                parseFloat(sitio.longitud),
+                            ]}
                         >
                             <Popup>
                                 <div className="min-w-[200px]">
-                                    <h3 className="font-semibold">{sitio.nombre}</h3>
-                                    <p className="text-sm text-muted-foreground">{sitio.localidad.nombre}</p>
-                                    <p className="text-xs text-muted-foreground">{sitio.categoria}</p>
+                                    <h3 className="font-semibold">
+                                        {sitio.nombre}
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground">
+                                        {sitio.localidad.nombre}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                        {sitio.categoria}
+                                    </p>
                                     {sitio.distancia && (
                                         <p className="mt-1 text-xs text-primary">
-                                            {sitio.distancia.toFixed(1)} {t('km')}
+                                            {sitio.distancia.toFixed(1)}{' '}
+                                            {t('km')}
                                         </p>
                                     )}
                                 </div>
@@ -166,13 +193,21 @@ export default function MapaIndex() {
 
                 {/* Controls overlay */}
                 <div className="absolute right-4 bottom-24 z-[1000] flex flex-col gap-2">
-                    <Button size="icon" variant="secondary" onClick={() => adjustRadio(5)}>
+                    <Button
+                        size="icon"
+                        variant="secondary"
+                        onClick={() => adjustRadio(5)}
+                    >
                         <Plus className="h-4 w-4" />
                     </Button>
                     <Card className="px-3 py-2 text-center text-xs">
                         {radio} {t('km')}
                     </Card>
-                    <Button size="icon" variant="secondary" onClick={() => adjustRadio(-5)}>
+                    <Button
+                        size="icon"
+                        variant="secondary"
+                        onClick={() => adjustRadio(-5)}
+                    >
                         <Minus className="h-4 w-4" />
                     </Button>
                 </div>

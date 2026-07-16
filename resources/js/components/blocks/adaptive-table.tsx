@@ -39,8 +39,7 @@ export const AdaptiveTable = forwardRef(function AdaptiveTable<TData = unknown>(
     const isMobile = useIsMobile();
 
     const forwardedRef = (ref ?? tableRef) as
-        | React.Ref<DataTableRef>
-        | undefined;
+        React.Ref<DataTableRef> | undefined;
 
     if (isMobile) {
         return (

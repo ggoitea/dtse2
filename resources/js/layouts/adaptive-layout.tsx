@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Toaster } from 'sonner';
 
 import PageSection from '@/components/blocks/page-section';
+import { FloatingAssistant } from '@/components/floating-assistant';
 import { Button } from '@/components/ui/button';
 import { useMenu } from '@/hooks/use-menu';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -12,7 +13,6 @@ import { BottomNav } from './adaptative/BottomNav';
 import { FloatingActionButton } from './adaptative/FloatingActionButton';
 import { Header } from './adaptative/Header';
 import AppLayout from './app-layout';
-import { FloatingAssistant } from '@/components/floating-assistant';
 
 const ZonaActionBuilder = ({
     quickActions,

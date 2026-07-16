@@ -1,8 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
-import { createElement } from 'react';
-import { Layers, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Globe } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -10,7 +9,6 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
     title?: string;
@@ -23,6 +21,7 @@ export function Header({ title, icon, actions }: HeaderProps) {
     const handleLanguageChange = (locale: 'es' | 'en' | 'qu' | 'pt') => {
         i18n.changeLanguage(locale);
     };
+    console.log(icon);
 
     return (
         <header
@@ -31,7 +30,7 @@ export function Header({ title, icon, actions }: HeaderProps) {
         >
             <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
                 <div className="flex items-center gap-3">
-                    <img src="/img/LogoDTSE2.png" alt="Logo" className="h-12 " />
+                    <img src="/img/LogoDTSE2.png" alt="Logo" className="h-12" />
 
                     {title && (
                         <h1
@@ -58,19 +57,27 @@ export function Header({ title, icon, actions }: HeaderProps) {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => handleLanguageChange('es')}>
+                            <DropdownMenuItem
+                                onClick={() => handleLanguageChange('es')}
+                            >
                                 <span className="mr-2">🇪🇸</span>
                                 Español
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleLanguageChange('en')}>
+                            <DropdownMenuItem
+                                onClick={() => handleLanguageChange('en')}
+                            >
                                 <span className="mr-2">🇺🇸</span>
                                 English
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleLanguageChange('qu')}>
+                            <DropdownMenuItem
+                                onClick={() => handleLanguageChange('qu')}
+                            >
                                 <span className="mr-2">🇵🇪</span>
                                 Quechua
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => handleLanguageChange('pt')}>
+                            <DropdownMenuItem
+                                onClick={() => handleLanguageChange('pt')}
+                            >
                                 <span className="mr-2">🇧🇷</span>
                                 Português
                             </DropdownMenuItem>

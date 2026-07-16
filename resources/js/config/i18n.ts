@@ -1,5 +1,5 @@
-import { initReactI18next } from "react-i18next";
-import i18n from "i18next";
+import { initReactI18next } from 'react-i18next';
+import i18n from 'i18next';
 
 import commonEn from '../locales/en/common.json';
 import landingEn from '../locales/en/landing.json';
@@ -18,9 +18,7 @@ import landingQu from '../locales/qu/landing.json';
 import mapaQu from '../locales/qu/mapa.json';
 import novedadesQu from '../locales/qu/novedades.json';
 
-i18n
-  .use(initReactI18next)
-  .init({
+i18n.use(initReactI18next).init({
     fallbackLng: 'es',
     lng: 'es',
     supportedLngs: ['es', 'en', 'pt', 'qu'],
@@ -55,6 +53,6 @@ i18n
             mapa: mapaQu,
         },
     },
-  });
+});
 
 export default i18n;

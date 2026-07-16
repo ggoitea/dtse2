@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Calendar, MapPin, Package, Search } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
@@ -73,8 +73,12 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
             <div className="min-h-screen bg-background">
                 {/* Hero */}
                 <section className="bg-gradient-to-br from-primary/10 via-background to-primary/5 px-4 py-16 text-center">
-                    <h1 className="mb-3 text-3xl font-bold text-foreground">{t('hero_title')}</h1>
-                    <p className="mb-8 text-muted-foreground">{t('hero_subtitle')}</p>
+                    <h1 className="mb-3 text-3xl font-bold text-foreground">
+                        {t('hero_title')}
+                    </h1>
+                    <p className="mb-8 text-muted-foreground">
+                        {t('hero_subtitle')}
+                    </p>
 
                     {/* Search */}
                     <div className="mx-auto flex max-w-md gap-2">
@@ -92,9 +96,11 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
 
                 {/* Category Filters */}
                 <section className="border-b px-4 py-4">
-                    <div className="mx-auto flex max-w-5xl gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                    <div className="scrollbar-hide mx-auto flex max-w-5xl gap-2 overflow-x-auto pb-2">
                         <Button
-                            variant={categoriaFiltro === '' ? 'default' : 'outline'}
+                            variant={
+                                categoriaFiltro === '' ? 'default' : 'outline'
+                            }
                             size="sm"
                             onClick={() => handleCategoria('')}
                         >
@@ -103,7 +109,11 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                         {categorias.map((cat) => (
                             <Button
                                 key={cat.value}
-                                variant={categoriaFiltro === cat.value ? 'default' : 'outline'}
+                                variant={
+                                    categoriaFiltro === cat.value
+                                        ? 'default'
+                                        : 'outline'
+                                }
                                 size="sm"
                                 onClick={() => handleCategoria(cat.value)}
                                 className="shrink-0"
@@ -117,11 +127,16 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                 {/* Sitios List */}
                 <section className="mx-auto max-w-5xl px-4 py-8">
                     {sitios.length === 0 ? (
-                        <p className="py-12 text-center text-muted-foreground">{t('sin_sitios')}</p>
+                        <p className="py-12 text-center text-muted-foreground">
+                            {t('sin_sitios')}
+                        </p>
                     ) : (
                         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                             {sitios.map((sitio) => (
-                                <Card key={sitio.id} className="overflow-hidden">
+                                <Card
+                                    key={sitio.id}
+                                    className="overflow-hidden"
+                                >
                                     <div className="relative h-40 bg-muted">
                                         {sitio.archivo_default ? (
                                             <img
@@ -135,24 +150,43 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                                             </div>
                                         )}
                                         {sitio.eventos.length > 0 && (
-                                            <Badge className="absolute top-2 right-2" variant="secondary">
+                                            <Badge
+                                                className="absolute top-2 right-2"
+                                                variant="secondary"
+                                            >
                                                 <Calendar className="mr-1 h-3 w-3" />
-                                                {t('proximo')} {sitio.eventos.length} {t('dias')}
+                                                {t('proximo')}{' '}
+                                                {sitio.eventos.length}{' '}
+                                                {t('dias')}
                                             </Badge>
                                         )}
                                     </div>
                                     <CardContent className="p-4">
-                                        <h3 className="mb-1 font-semibold">{sitio.nombre}</h3>
+                                        <h3 className="mb-1 font-semibold">
+                                            {sitio.nombre}
+                                        </h3>
                                         <p className="mb-2 text-sm text-muted-foreground">
-                                            {sitio.localidad.nombre}, {sitio.localidad.departamento.nombre}
+                                            {sitio.localidad.nombre},{' '}
+                                            {
+                                                sitio.localidad.departamento
+                                                    .nombre
+                                            }
                                         </p>
-                                        <Badge variant="outline" className="text-xs">
+                                        <Badge
+                                            variant="outline"
+                                            className="text-xs"
+                                        >
                                             {sitio.categoria}
                                         </Badge>
                                         {sitio.paquetes.length > 0 && (
-                                            <Button variant="link" size="sm" className="mt-2 p-0">
+                                            <Button
+                                                variant="link"
+                                                size="sm"
+                                                className="mt-2 p-0"
+                                            >
                                                 <Package className="mr-1 h-3 w-3" />
-                                                {t('ver_paquetes')} ({sitio.paquetes.length})
+                                                {t('ver_paquetes')} (
+                                                {sitio.paquetes.length})
                                             </Button>
                                         )}
                                     </CardContent>

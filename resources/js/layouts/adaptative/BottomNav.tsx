@@ -25,8 +25,8 @@ export function BottomNav({ items }: BottomNavProps) {
     const { canAny, hasAnyRole } = usePermissions();
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-40 bg-card/40 backdrop-blur-xl border-t border-white/40 shadow-[0_-4px_24px_rgba(0,0,0,0.04)] px-4 pb-safe-bottom">
-            <div className="max-w-md mx-auto flex justify-between items-center h-16">
+        <div className="pb-safe-bottom fixed right-0 bottom-0 left-0 z-40 border-t border-white/40 bg-card/40 px-4 shadow-[0_-4px_24px_rgba(0,0,0,0.04)] backdrop-blur-xl">
+            <div className="mx-auto flex h-16 max-w-md items-center justify-between">
                 {items.map((item, index) => {
                     if (
                         (item.can && !canAny(item.can)) ||
@@ -38,37 +38,44 @@ export function BottomNav({ items }: BottomNavProps) {
                     const isActive = urlIsActive(item.href); // || item.isActive;
                     const Icon = item.icon;
 
-
                     return (
                         <Link
                             key={index}
                             prefetch={['mount', 'click']}
                             cacheFor="30s"
                             href={item.href}
-                            className="relative flex flex-col items-center justify-center flex-1 h-full py-1 text-xs focus:outline-none"
+                            className="relative flex h-full flex-1 flex-col items-center justify-center py-1 text-xs focus:outline-none"
                         >
                             <div className="relative flex items-center justify-center">
                                 {/* Active circle glow effect */}
                                 {isActive && (
                                     <motion.div
                                         layoutId="activeGlow"
-                                        className="absolute -inset-2 bg-primary rounded-full -z-10"
-                                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                                        className="absolute -inset-2 -z-10 rounded-full bg-primary"
+                                        transition={{
+                                            type: 'spring',
+                                            stiffness: 380,
+                                            damping: 30,
+                                        }}
                                     />
                                 )}
-                                {Icon && <Icon
-                                    className={cn(
-                                        'w-6 h-6 transition-colors duration-200',
-                                        isActive ? 'text-card stroke-[2.5]' : 'text-foreground/75'
-
-                                    )}
-                                />}
-
+                                {Icon && (
+                                    <Icon
+                                        className={cn(
+                                            'h-6 w-6 transition-colors duration-200',
+                                            isActive
+                                                ? 'stroke-[2.5] text-card'
+                                                : 'text-foreground/75',
+                                        )}
+                                    />
+                                )}
                             </div>
                             <span
                                 className={cn(
                                     'mt-1 text-[10px] font-medium tracking-wide transition-colors duration-200',
-                                    isActive ? 'hidden' : 'text - foreground / 75',
+                                    isActive
+                                        ? 'hidden'
+                                        : 'text - foreground / 75',
                                 )}
                             >
                                 {item.title}

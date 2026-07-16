@@ -1,9 +1,4 @@
-import {
-    Compass,
-    Heart,
-    Map,
-    Sparkles,
-} from 'lucide-react';
+import { Compass, Heart, Map, Sparkles } from 'lucide-react';
 
 import type { NavItemBottomMobile } from '@/layouts/adaptative/BottomNav';
 import { landing } from '@/routes';

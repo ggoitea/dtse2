@@ -1,11 +1,13 @@
+import 'leaflet/dist/leaflet.css';
+
+import { I18nextProvider } from 'react-i18next';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
-import i18n from "./config/i18n"; // Import the i18n configuration
-import { I18nextProvider } from 'react-i18next';
-import 'leaflet/dist/leaflet.css';
+
+import i18n from './config/i18n'; // Import the i18n configuration
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
