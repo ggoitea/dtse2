@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\SitioSocialTipo;
+use App\Enums\SitioSocialTipoEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('sitio_sociales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sitio_id')->constrained()->cascadeOnDelete();
-            $table->enum('tipo', array_column(SitioSocialTipo::cases(), 'value'));
+            $table->enum('tipo', array_column(SitioSocialTipoEnum::cases(), 'value'));
             $table->string('url');
             $table->timestamps();
         });

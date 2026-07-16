@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\SitioCategoria;
-use App\Enums\SitioEstado;
+use App\Enums\SitioCategoriaEnum;
+use App\Enums\SitioEstadoEnum;
 use App\Traits\HasArchivos;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -32,8 +32,8 @@ class Sitio extends Model
     protected function casts(): array
     {
         return [
-            'estado' => SitioEstado::class,
-            'categoria' => SitioCategoria::class,
+            'estado' => SitioEstadoEnum::class,
+            'categoria' => SitioCategoriaEnum::class,
         ];
     }
 
@@ -87,7 +87,7 @@ class Sitio extends Model
 
     public function scopeActivos(Builder $query): void
     {
-        $query->where('estado', SitioEstado::Activo);
+        $query->where('estado', SitioEstadoEnum::Activo);
     }
 
     public function scopePorRadio(Builder $query, float $lat, float $lng, float $radioKm): void

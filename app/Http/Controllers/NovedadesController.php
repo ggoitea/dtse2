@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\SitioCategoria;
+use App\Enums\SitioCategoriaEnum;
 use App\Modules\Eventos\UseCases\ObtenerEventosProximos;
 use App\Modules\Sitios\UseCases\ObtenerSitios;
 use Illuminate\Http\Request;
@@ -15,9 +15,9 @@ class NovedadesController extends Controller
         $filtros = $request->only(['buscar', 'categoria']);
 
         return Inertia::render('novedades/index', [
-            'sitios' => fn() => ObtenerSitios::make($filtros),
-            'eventos' => fn() => ObtenerEventosProximos::make(),
-            'categorias' => SitioCategoria::options(),
+            'sitios' => fn () => ObtenerSitios::make($filtros),
+            'eventos' => fn () => ObtenerEventosProximos::make(),
+            'categorias' => SitioCategoriaEnum::options(),
         ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\EventoEstado;
+use App\Enums\EventoEstadoEnum;
 use App\Traits\HasArchivos;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +32,7 @@ class Evento extends Model
             'fecha' => 'date',
             'inicio' => 'datetime:H:i',
             'fin' => 'datetime:H:i',
-            'estado' => EventoEstado::class,
+            'estado' => EventoEstadoEnum::class,
         ];
     }
 
@@ -55,12 +55,12 @@ class Evento extends Model
     public function scopeProximos(Builder $query): void
     {
         $query->where('fecha', '>=', now()->toDateString())
-            ->where('estado', EventoEstado::Activo)
+            ->where('estado', EventoEstadoEnum::Activo)
             ->orderBy('fecha');
     }
 
     public function scopeActivos(Builder $query): void
     {
-        $query->where('estado', EventoEstado::Activo);
+        $query->where('estado', EventoEstadoEnum::Activo);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SitioSocialTipo: string
+enum SitioSocialTipoEnum: string
 {
     case Web = 'web';
     case Youtube = 'youtube';

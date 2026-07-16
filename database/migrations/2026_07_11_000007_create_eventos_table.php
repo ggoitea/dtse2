@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\EventoEstado;
+use App\Enums\EventoEstadoEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->time('fin')->nullable();
             $table->string('domicilio_calle');
             $table->string('domicilio_numero')->nullable();
-            $table->enum('estado', array_column(EventoEstado::cases(), 'value'))->default(EventoEstado::Pendiente->value);
+            $table->enum('estado', array_column(EventoEstadoEnum::cases(), 'value'))->default(EventoEstadoEnum::Pendiente->value);
             $table->timestamps();
 
             $table->index('fecha');

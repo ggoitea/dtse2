@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum PaqueteCategoria: string
+enum PaqueteCategoriaEnum: string
 {
     case Aventura = 'aventura';
     case Cultura = 'cultura';

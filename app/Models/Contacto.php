@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ContactoEstado;
+use App\Enums\ContactoEstadoEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Contacto extends Model
@@ -17,7 +17,7 @@ class Contacto extends Model
     protected function casts(): array
     {
         return [
-            'estado' => ContactoEstado::class,
+            'estado' => ContactoEstadoEnum::class,
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\SitioAperturaDia;
+use App\Enums\SitioAperturaDiaEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,7 +18,7 @@ class SitioApertura extends Model
     protected function casts(): array
     {
         return [
-            'dia' => SitioAperturaDia::class,
+            'dia' => SitioAperturaDiaEnum::class,
             'apertura' => 'datetime:H:i',
             'cierre' => 'datetime:H:i',
         ];

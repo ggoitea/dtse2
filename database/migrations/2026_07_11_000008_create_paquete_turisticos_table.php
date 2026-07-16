@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\PaqueteCategoria;
-use App\Enums\PaqueteEstado;
+use App\Enums\PaqueteCategoriaEnum;
+use App\Enums\PaqueteEstadoEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,10 +15,10 @@ return new class extends Migration
             $table->nullableMorphs('modelable');
             $table->string('nombre');
             $table->longText('descripcion')->nullable();
-            $table->enum('categoria', array_column(PaqueteCategoria::cases(), 'value'));
+            $table->enum('categoria', array_column(PaqueteCategoriaEnum::cases(), 'value'));
             $table->string('destino')->nullable();
             $table->string('duracion')->nullable();
-            $table->enum('estado', array_column(PaqueteEstado::cases(), 'value'))->default(PaqueteEstado::Activo->value);
+            $table->enum('estado', array_column(PaqueteEstadoEnum::cases(), 'value'))->default(PaqueteEstadoEnum::Activo->value);
             $table->timestamps();
 
             $table->index('estado');

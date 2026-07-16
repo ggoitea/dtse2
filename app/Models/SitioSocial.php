@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\SitioSocialTipo;
+use App\Enums\SitioSocialTipoEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -17,7 +17,7 @@ class SitioSocial extends Model
     protected function casts(): array
     {
         return [
-            'tipo' => SitioSocialTipo::class,
+            'tipo' => SitioSocialTipoEnum::class,
         ];
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SitioCategoria: string
+enum SitioCategoriaEnum: string
 {
     case InteresTuristico = 'interes_turistico';
     case Alojamiento = 'alojamiento';
@@ -54,7 +54,7 @@ enum SitioCategoria: string
     public static function options(): array
     {
         return array_map(
-            fn(self $case) => ['value' => $case->value, 'label' => $case->label()],
+            fn (self $case) => ['value' => $case->value, 'label' => $case->label()],
             self::cases()
         );
     }

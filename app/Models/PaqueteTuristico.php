@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\PaqueteCategoria;
-use App\Enums\PaqueteEstado;
+use App\Enums\PaqueteCategoriaEnum;
+use App\Enums\PaqueteEstadoEnum;
 use App\Traits\HasArchivos;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -28,8 +28,8 @@ class PaqueteTuristico extends Model
     protected function casts(): array
     {
         return [
-            'categoria' => PaqueteCategoria::class,
-            'estado' => PaqueteEstado::class,
+            'categoria' => PaqueteCategoriaEnum::class,
+            'estado' => PaqueteEstadoEnum::class,
         ];
     }
 

@@ -2,20 +2,20 @@
 
 namespace App\Enums;
 
-enum SitioEstado: string
+enum PaqueteEstadoEnum: string
 {
-    case Pendiente = 'pendiente';
     case Activo = 'activo';
+    case Agotado = 'agotado';
     case Suspendido = 'suspendido';
-    case Rechazado = 'rechazado';
+    case Cancelado = 'cancelado';
 
     public function label(): string
     {
         return match ($this) {
-            self::Pendiente => 'Pendiente',
             self::Activo => 'Activo',
+            self::Agotado => 'Agotado',
             self::Suspendido => 'Suspendido',
-            self::Rechazado => 'Rechazado',
+            self::Cancelado => 'Cancelado',
         };
     }
 

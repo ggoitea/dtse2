@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum SitioAperturaDia: string
+enum SitioAperturaDiaEnum: string
 {
     case Lunes = 'lunes';
     case Martes = 'martes';

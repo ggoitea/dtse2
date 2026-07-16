@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum EventoEstado: string
+enum SitioEstadoEnum: string
 {
     case Pendiente = 'pendiente';
     case Activo = 'activo';

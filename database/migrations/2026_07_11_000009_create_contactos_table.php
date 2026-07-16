@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ContactoEstado;
+use App\Enums\ContactoEstadoEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('telefono');
             $table->text('consulta');
-            $table->enum('estado', array_column(ContactoEstado::cases(), 'value'))->default(ContactoEstado::Nuevo->value);
+            $table->enum('estado', array_column(ContactoEstadoEnum::cases(), 'value'))->default(ContactoEstadoEnum::Nuevo->value);
             $table->timestamps();
 
             $table->index('estado');

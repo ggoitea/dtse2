@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ContactoEstado: string
+enum ContactoEstadoEnum: string
 {
     case Nuevo = 'nuevo';
     case Leido = 'leido';

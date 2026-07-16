@@ -1,7 +1,7 @@
 <?php
 
-use App\Enums\SitioCategoria;
-use App\Enums\SitioEstado;
+use App\Enums\SitioCategoriaEnum;
+use App\Enums\SitioEstadoEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('latitud');
             $table->string('longitud');
             $table->longText('descripcion')->nullable();
-            $table->enum('estado', array_column(SitioEstado::cases(), 'value'))->default(SitioEstado::Pendiente->value);
+            $table->enum('estado', array_column(SitioEstadoEnum::cases(), 'value'))->default(SitioEstadoEnum::Pendiente->value);
             $table->foreignId('creado_por_user_id')->nullable()->nullOnDelete();
-            $table->enum('categoria', array_column(SitioCategoria::cases(), 'value'))->default(SitioCategoria::Otro->value);
+            $table->enum('categoria', array_column(SitioCategoriaEnum::cases(), 'value'))->default(SitioCategoriaEnum::Otro->value);
             $table->timestamps();
 
             $table->index('estado');
