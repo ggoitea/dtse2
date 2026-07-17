@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->integer('creditos_disponibles')->default(0);
-            $table->integer('creditos_usados')->default(0);
             $table->timestamps();
 
             $table->unique('user_id');

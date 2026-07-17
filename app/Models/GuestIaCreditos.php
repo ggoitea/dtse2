@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -14,10 +13,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property bool $has_credits
  */
-class UserIaCredito extends Model
+class GuestIaCreditos extends Model
 {
     protected $fillable = [
-        'user_id',
+        'ip_address',
         'creditos_disponibles',
     ];
 
@@ -27,12 +26,6 @@ class UserIaCredito extends Model
             'creditos_disponibles' => 'integer',
         ];
     }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
 
     // Accessor
     protected function hasCredits(): Attribute
