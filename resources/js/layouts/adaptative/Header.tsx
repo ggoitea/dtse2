@@ -9,6 +9,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAppearance } from '@/hooks/use-appearance';
 
 interface HeaderProps {
     title?: string;
@@ -18,10 +19,12 @@ interface HeaderProps {
 
 export function Header({ title, icon, actions }: HeaderProps) {
     const { i18n } = useTranslation();
+    const { resolvedAppearance } = useAppearance();
+    console.log('resolvedAppearance', resolvedAppearance);
+
     const handleLanguageChange = (locale: 'es' | 'en' | 'qu' | 'pt') => {
         i18n.changeLanguage(locale);
     };
-    console.log(icon);
 
     return (
         <header
@@ -30,7 +33,11 @@ export function Header({ title, icon, actions }: HeaderProps) {
         >
             <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
                 <div className="flex items-center gap-3">
-                    <img src="/img/LogoDTSE2.png" alt="Logo" className="h-12" />
+                    {resolvedAppearance == 'dark' ? (
+                        <img src="/img/LogoDTSE_dark.png" alt="Logo" className="h-12" />
+                    ) : (
+                        <img src="/img/LogoDTSE2.png" alt="Logo" className="h-12" />
+                    )}
 
                     {title && (
                         <h1
