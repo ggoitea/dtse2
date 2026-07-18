@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property string $ip_address
  * @property int $creditos_disponibles
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property bool $has_credits
  */
 class UserIaCredito extends Model
@@ -33,12 +34,11 @@ class UserIaCredito extends Model
         return $this->belongsTo(User::class);
     }
 
-
     // Accessor
     protected function hasCredits(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->creditos_disponibles > 0,
+            get: fn () => $this->creditos_disponibles > 0,
         );
     }
 }

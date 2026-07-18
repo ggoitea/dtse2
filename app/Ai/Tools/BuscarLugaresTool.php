@@ -2,10 +2,10 @@
 
 namespace App\Ai\Tools;
 
+use App\Services\Lugares\LugaresService;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Ai\Contracts\Tool;
 use Laravel\Ai\Tools\Request;
-use App\Services\Lugares\LugaresService;
 
 class BuscarLugaresTool implements Tool
 {
@@ -32,7 +32,7 @@ class BuscarLugaresTool implements Tool
     {
         $tipo = $request['tipo'] ?? '';
         $nombre = $request['nombre'] ?? '';
-        $service = new LugaresService();
+        $service = new LugaresService;
 
         try {
             $resultado = match ($tipo) {
@@ -40,7 +40,7 @@ class BuscarLugaresTool implements Tool
                 'restaurantes' => $service->buscarRestaurantes(),
                 'hoteles' => $service->buscarHoteles(),
                 'puntos_interes' => $service->buscarPuntosInteres(),
-                'buscar_nombre' => !empty($nombre) ? $service->buscarPorNombre($nombre) : ['error' => 'Nombre requerido'],
+                'buscar_nombre' => ! empty($nombre) ? $service->buscarPorNombre($nombre) : ['error' => 'Nombre requerido'],
                 default => ['error' => 'Tipo de búsqueda no válido'],
             };
 

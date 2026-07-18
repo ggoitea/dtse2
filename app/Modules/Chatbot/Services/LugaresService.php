@@ -2,13 +2,15 @@
 
 namespace App\Modules\Chatbot\Services;
 
-use Illuminate\Support\Facades\Http;
 use Exception;
+use Illuminate\Support\Facades\Http;
 
 class LugaresService
 {
     protected string $apiKey;
+
     protected string $baseUrl = 'https://maps.googleapis.com/maps/api/place';
+
     protected array $coordenadasSantiago = [
         'lat' => -27.7951,
         'lng' => -64.2637,
@@ -25,8 +27,6 @@ class LugaresService
 
     /**
      * Busca museos en Santiago del Estero
-     * 
-     * @return array
      */
     public function buscarMuseos(): array
     {
@@ -35,8 +35,6 @@ class LugaresService
 
     /**
      * Busca restaurantes en Santiago del Estero
-     * 
-     * @return array
      */
     public function buscarRestaurantes(): array
     {
@@ -45,8 +43,6 @@ class LugaresService
 
     /**
      * Busca hoteles en Santiago del Estero
-     * 
-     * @return array
      */
     public function buscarHoteles(): array
     {
@@ -55,8 +51,6 @@ class LugaresService
 
     /**
      * Busca lugares de interés turístico
-     * 
-     * @return array
      */
     public function buscarPuntosInteres(): array
     {
@@ -65,24 +59,20 @@ class LugaresService
 
     /**
      * Busca un tipo específico de lugar en Santiago del Estero
-     * 
-     * @param string $tipo
-     * @param string $etiqueta
-     * @return array
      */
     private function buscarLugar(string $tipo, string $etiqueta): array
     {
         try {
-            $response = Http::get($this->baseUrl . '/nearbysearch/json', [
-                'location' => $this->coordenadasSantiago['lat'] . ',' . $this->coordenadasSantiago['lng'],
+            $response = Http::get($this->baseUrl.'/nearbysearch/json', [
+                'location' => $this->coordenadasSantiago['lat'].','.$this->coordenadasSantiago['lng'],
                 'radius' => 50000, // 50 km alrededor de Santiago del Estero
                 'type' => $tipo,
                 'key' => $this->apiKey,
                 'language' => 'es',
             ]);
 
-            if (!$response->successful()) {
-                throw new Exception('Error al consultar lugares: ' . $response->status());
+            if (! $response->successful()) {
+                throw new Exception('Error al consultar lugares: '.$response->status());
             }
 
             $data = $response->json();
@@ -117,21 +107,18 @@ class LugaresService
 
     /**
      * Obtiene detalles completos de un lugar
-     * 
-     * @param string $placeId
-     * @return array
      */
     private function obtenerDetalles(string $placeId): array
     {
         try {
-            $response = Http::get($this->baseUrl . '/details/json', [
+            $response = Http::get($this->baseUrl.'/details/json', [
                 'place_id' => $placeId,
                 'key' => $this->apiKey,
                 'language' => 'es',
                 'fields' => 'formatted_address,formatted_phone_number,website,opening_hours',
             ]);
 
-            if (!$response->successful()) {
+            if (! $response->successful()) {
                 return [];
             }
 
@@ -143,24 +130,21 @@ class LugaresService
 
     /**
      * Busca un lugar específico por nombre en Santiago del Estero
-     * 
-     * @param string $nombre
-     * @return array
      */
     public function buscarPorNombre(string $nombre): array
     {
         try {
             // Buscar con el nombre completo que incluya Santiago del Estero
-            $query = $nombre . ' Santiago del Estero Argentina';
+            $query = $nombre.' Santiago del Estero Argentina';
 
-            $response = Http::get($this->baseUrl . '/textsearch/json', [
+            $response = Http::get($this->baseUrl.'/textsearch/json', [
                 'query' => $query,
                 'key' => $this->apiKey,
                 'language' => 'es',
             ]);
 
-            if (!$response->successful()) {
-                throw new Exception('Error al buscar: ' . $response->status());
+            if (! $response->successful()) {
+                throw new Exception('Error al buscar: '.$response->status());
             }
 
             $data = $response->json();

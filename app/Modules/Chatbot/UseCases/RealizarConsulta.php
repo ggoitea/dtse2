@@ -12,7 +12,7 @@ class RealizarConsulta
 {
     public static function make(string $consulta): string
     {
-        return (new self())->__invoke(consulta: $consulta);
+        return (new self)->__invoke(consulta: $consulta);
     }
 
     /**
@@ -39,7 +39,6 @@ class RealizarConsulta
                 ['creditos_disponibles' => 2]
             );
 
-
             if ($credito->creditos_disponibles <= 0) {
                 throw ValidationException::withMessages([
                     'creditos' => 'No tienes créditos disponibles para realizar consultas.',
@@ -47,7 +46,7 @@ class RealizarConsulta
             }
         }
 
-        $agent = new  UrituAgent();
+        $agent = new UrituAgent;
         $response = $agent->prompt($consulta);
 
         $credito->creditos_disponibles -= 1;

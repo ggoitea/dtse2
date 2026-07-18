@@ -2,12 +2,13 @@
 
 namespace App\Modules\Chatbot\Services;
 
-use Illuminate\Support\Facades\Http;
 use Exception;
+use Illuminate\Support\Facades\Http;
 
 class ClimaService
 {
     protected string $apiKey;
+
     protected string $baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
     public function __construct()
@@ -21,8 +22,6 @@ class ClimaService
 
     /**
      * Obtiene el clima actual de Santiago del Estero
-     * 
-     * @return array
      */
     public function obtenerClima(): array
     {
@@ -34,14 +33,14 @@ class ClimaService
                 'lang' => 'es',
             ]);
 
-            if (!$response->successful()) {
-                throw new Exception('Error al consultar el clima: ' . $response->status());
+            if (! $response->successful()) {
+                throw new Exception('Error al consultar el clima: '.$response->status());
             }
 
             $data = $response->json();
 
             return [
-                'ubicacion' => $data['name'] . ', ' . $data['sys']['country'],
+                'ubicacion' => $data['name'].', '.$data['sys']['country'],
                 'temperatura' => $data['main']['temp'],
                 'sensacion_termica' => $data['main']['feels_like'],
                 'temperatura_minima' => $data['main']['temp_min'],
@@ -62,8 +61,6 @@ class ClimaService
 
     /**
      * Obtiene el pronóstico de 5 días para Santiago del Estero
-     * 
-     * @return array
      */
     public function obtenerPronostico(): array
     {
@@ -75,8 +72,8 @@ class ClimaService
                 'lang' => 'es',
             ]);
 
-            if (!$response->successful()) {
-                throw new Exception('Error al consultar el pronóstico: ' . $response->status());
+            if (! $response->successful()) {
+                throw new Exception('Error al consultar el pronóstico: '.$response->status());
             }
 
             $data = $response->json();

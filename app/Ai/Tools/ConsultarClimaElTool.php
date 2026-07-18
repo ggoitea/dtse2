@@ -2,10 +2,10 @@
 
 namespace App\Ai\Tools;
 
+use App\Services\Clima\ClimaService;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Ai\Contracts\Tool;
 use Laravel\Ai\Tools\Request;
-use App\Services\Clima\ClimaService;
 
 class ConsultarClimaElTool implements Tool
 {
@@ -31,7 +31,7 @@ class ConsultarClimaElTool implements Tool
     public function handle(Request $request): string
     {
         $tipoConsulta = $request['tipo_consulta'] ?? 'actual';
-        $service = new ClimaService();
+        $service = new ClimaService;
 
         try {
             if ($tipoConsulta === 'pronostico') {

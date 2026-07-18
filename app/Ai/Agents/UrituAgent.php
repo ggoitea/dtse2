@@ -47,8 +47,8 @@ class UrituAgent implements Agent, Conversational, HasTools
             new FileSearch(stores: [
                 config('chatbot.vector_store_id'),
             ]),
-            new ClimaService(),
-            new LugaresService(),
+            new ClimaService,
+            new LugaresService,
         ];
     }
 }
