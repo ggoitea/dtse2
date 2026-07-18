@@ -3,6 +3,7 @@ import { Compass, Send, Sparkles, User, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
 import type { ChatMessage } from '@/types/chat';
+import perfil from '@/assets/perfil_uritu.jpg';
 
 interface FloatingAssistantProps {
     onSuggestCity?: (city: string) => void;
@@ -183,14 +184,14 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
 
                             <div className="relative flex items-center gap-2.5">
                                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-                                    <Sparkles className="h-4.5 w-4.5 text-[#fcd400]" />
+                                    <img src={perfil} className="h-9 w-9 rounded-full  bg-white/10" />
                                 </div>
                                 <div>
                                     <h3 className="font-montserrat flex items-center gap-1.5 text-sm leading-none font-bold">
                                         Uritu
                                     </h3>
                                     <span className="mt-0.5 inline-block font-sans text-[10px] text-gray-200/80">
-                                        Tu asistente turistico en Santiago del Estero
+                                        Asistente virtual de turismo
                                     </span>
                                 </div>
                             </div>
@@ -330,7 +331,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                         </form>
                     </motion.div>
                 )}
-            </AnimatePresence>
+            </AnimatePresence >
         </>
     );
 }

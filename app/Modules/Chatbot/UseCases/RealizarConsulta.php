@@ -10,6 +10,11 @@ use Illuminate\Validation\ValidationException;
 
 class RealizarConsulta
 {
+    public static function make(string $consulta): string
+    {
+        return (new self())->__invoke(consulta: $consulta);
+    }
+
     /**
      * @return string false si no tienes la capacidad para realizar consultas
      */

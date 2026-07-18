@@ -9,7 +9,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 // import { landing } from '@/routes';
-import fondo from '@/assets/novedades_hero.png';
+import fondo from '@/assets/novedades_hero.jpg';
 
 
 type Sitio = {
