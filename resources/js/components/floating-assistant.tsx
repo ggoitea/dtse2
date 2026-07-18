@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'motion/react';
 
 import type { ChatMessage } from '@/types/chat';
 import perfil from '@/assets/perfil_uritu.jpg';
+import { useHttp } from '@inertiajs/react';
+import { asistente } from '@/routes/api';
 
 interface FloatingAssistantProps {
     onSuggestCity?: (city: string) => void;
@@ -14,7 +16,9 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     // UseRef mantiene el contador entre renders sin violar reglas de render puro.
     const messageIdRef = useRef(0);
     const { onSuggestCity } = props;
-    console.log(onSuggestCity);
+    const { data, setData, post, processing, errors } = useHttp({
+        consulta: ''
+    })
 
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([
@@ -26,13 +30,12 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
         },
     ]);
     const [inputValue, setInputValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const chatEndRef = useRef<HTMLDivElement>(null);
 
     // Auto-scroll to the bottom of the conversation
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages, isLoading]);
+    }, [messages, processing]);
 
     const suggestions = [
         {
@@ -54,7 +57,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     ];
 
     const handleSendMessage = async (text: string) => {
-        if (!text.trim() || isLoading) {
+        if (!text.trim() || processing) {
             return;
         }
 
@@ -67,54 +70,35 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
 
         setMessages((prev) => [...prev, userMsg]);
         setInputValue('');
-        setIsLoading(true);
+        setData('consulta', text.trim())
 
-        try {
-            const response = await fetch('/api/assistant', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: text.trim(),
-                    history: messages.map((m) => ({
-                        role: m.sender === 'user' ? 'user' : 'model',
-                        text: m.text,
-                    })),
-                }),
-            });
+        post(asistente.url(), {
+            onSuccess: (response) => {
+                const assistantMsg: ChatMessage = {
+                    id: (++messageIdRef.current).toString(),
+                    sender: 'assistant',
+                    text: response.respuesta,
+                    timestamp: new Date(),
+                };
+                setMessages((prev) => [...prev, assistantMsg]);
+            },
+            onError: (err) => {
 
-            if (!response.ok) {
-                throw new Error('API server returned error');
+                const errorMsg: ChatMessage = {
+                    id: (++messageIdRef.current).toString(),
+                    sender: 'assistant',
+                    text: err.creditos ? '¡Uy! Parece que hubo un problema. ' + err.creditos : '¡Uy! Parece que hubo un problema de conexión con mi servidor. De todos modos, ¡déjame contarte que Santiago del Estero es famosa por sus empanadas santiagueñas al horno de barro, el cabrito, y sus cálidas peñas como la de la familia Carabajal! ¿Qué más te gustaría saber?',
+                    timestamp: new Date(),
+                };
+                setMessages((prev) => [...prev, errorMsg]);
             }
-
-            const data = await response.json();
-            const assistantMsg: ChatMessage = {
-                id: (++messageIdRef.current).toString(),
-                sender: 'assistant',
-                text:
-                    data.reply ||
-                    'Lo siento, no pude obtener una respuesta en este momento.',
-                timestamp: new Date(),
-            };
-
-            setMessages((prev) => [...prev, assistantMsg]);
-        } catch (error) {
-            console.error('Error contacting assistant backend:', error);
-            const errorMsg: ChatMessage = {
-                id: (++messageIdRef.current).toString(),
-                sender: 'assistant',
-                text: '¡Uy! Parece que hubo un problema de conexión con mi servidor. De todos modos, ¡déjame contarte que Santiago del Estero es famosa por sus empanadas santiagueñas al horno de barro, el cabrito, y sus cálidas peñas como la de la familia Carabajal! ¿Qué más te gustaría saber?',
-                timestamp: new Date(),
-            };
-            setMessages((prev) => [...prev, errorMsg]);
-        } finally {
-            setIsLoading(false);
-        }
+        });
     };
 
     const handleSuggestionClick = (prompt: string) => {
         handleSendMessage(prompt);
     };
-
+    console.log(errors)
     return (
         <>
             {/* Draggable Floating Globe Balloon button using Framer Motion */}
@@ -258,7 +242,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                                 );
                             })}
 
-                            {isLoading && (
+                            {processing && (
                                 <div className="flex max-w-[80%] items-start gap-2 self-start">
                                     <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#00327d]/10 text-[#00327d]">
                                         <Compass className="h-4 w-4 animate-spin" />
@@ -313,14 +297,14 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                                 placeholder="Pregúntame algo..."
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
-                                disabled={isLoading}
+                                disabled={processing}
                                 className="flex-1 rounded-xl border border-white/40 bg-white/50 px-3 py-2.5 text-sm text-gray-800 placeholder-gray-400 transition-colors outline-none focus:border-[#00327d]"
                                 id="assistant-chat-input"
                             />
                             <button
                                 type="submit"
-                                disabled={!inputValue.trim() || isLoading}
-                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${inputValue.trim() && !isLoading
+                                disabled={!inputValue.trim() || processing}
+                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${inputValue.trim() && !processing
                                     ? 'bg-[#00327d] text-white shadow-md active:scale-95'
                                     : 'bg-gray-100 text-gray-300'
                                     }`}

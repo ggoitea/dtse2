@@ -21,6 +21,7 @@ class RealizarConsulta
     public function __invoke(string $consulta): string
     {
         if (Auth::check()) {
+
             $credito = UserIaCredito::firstOrCreate(
                 ['user_id' => Auth::id()],
                 ['creditos_disponibles' => 3]
@@ -31,19 +32,27 @@ class RealizarConsulta
                 ]);
             }
         } else {
+
             $ipAddress = request()->ip();
             $credito = GuestIaCreditos::query()->firstOrCreate(
                 ['ip_address' => $ipAddress],
                 ['creditos_disponibles' => 2]
             );
+
+
             if ($credito->creditos_disponibles <= 0) {
                 throw ValidationException::withMessages([
                     'creditos' => 'No tienes créditos disponibles para realizar consultas.',
                 ]);
             }
         }
+
         $agent = new  UrituAgent();
         $response = $agent->prompt($consulta);
+
+        $credito->creditos_disponibles -= 1;
+        $credito->save();
+
         return $response;
     }
 }
