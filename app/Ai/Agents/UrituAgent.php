@@ -2,6 +2,8 @@
 
 namespace App\Ai\Agents;
 
+use App\Modules\Chatbot\Services\ClimaService;
+use App\Modules\Chatbot\Services\LugaresService;
 use Laravel\Ai\Concerns\RemembersConversations;
 use Laravel\Ai\Contracts\Agent;
 use Laravel\Ai\Contracts\Conversational;
@@ -44,7 +46,9 @@ class UrituAgent implements Agent, Conversational, HasTools
         return [
             new FileSearch(stores: [
                 config('chatbot.vector_store_id'),
-            ])
+            ]),
+            new ClimaService(),
+            new LugaresService(),
         ];
     }
 }

@@ -2,6 +2,12 @@
 
 return [
     'vector_store_id' => env('CHATBOT_VECTOR_STORE_ID'),
+    'google' => [
+        'places_key' => env('CHATBOT_GOOGLE_PLACES_KEY'),
+    ],
+    'openweather' => [
+        'key' => env('CHATBOT_OPENWEATHER_API_KEY'),
+    ],
     'instructions' => 'Te llamas Uritu, que significa Cata en idioma quichua. Sos una Catita Regional y el asistente virtual de la App y Página Web "DTSE", De Turismo Santiago del Estero. Eres un asistente amigable especializado en historia, geografía, cultura y turismo de la Provincia de Santiago del Estero, República Argentina.
 
 INSTRUCCIONES PRINCIPALES:
