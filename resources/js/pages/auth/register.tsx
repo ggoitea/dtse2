@@ -50,22 +50,6 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="username">
-                                    Nombre de usuario
-                                </Label>
-                                <Input
-                                    id="username"
-                                    type="text"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="username"
-                                    name="username"
-                                    placeholder="Nombre de usuario"
-                                />
-                                <InputError message={errors.username} />
-                            </div>
-
-                            <div className="grid gap-2">
                                 <Label htmlFor="email">
                                     Correo electrónico
                                 </Label>

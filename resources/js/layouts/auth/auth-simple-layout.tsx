@@ -20,28 +20,21 @@ export default function AuthSimpleLayout({
                 {/* Branding Content */}
                 <div className="relative z-20 text-white max-w-lg">
                     <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-4 py-2 backdrop-blur-md">
-                        <span className="font-semibold tracking-wider">BARRIO BLINDADO</span>
+                        <span className="font-semibold tracking-wider">DTSE</span>
                     </div>
                     <h1 className="mb-6 text-5xl font-bold leading-tight">
-                        Tu seguridad comienza aquí.
+                        Turismo Santiago del Estero
                     </h1>
                     <p className="mb-10 text-lg leading-relaxed opacity-90">
-                        Únete a nuestra comunidad y accede a los mejores servicios de seguridad
-                        para tu barrio y tu familia.
+                        El portal a la cultura, el bienestar y la aventura en el corazón de Argentina.
                     </p>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="rounded-xl border border-white/20 bg-white/75 p-6 backdrop-blur-md">
-                            <div className="mb-1 text-3xl font-bold">100%</div>
+                    <div className="grid grid-cols-1 gap-4">
+                        <div className="rounded-xl border border-white/20  p-6 backdrop-blur-md">
+                            <div className="mb-1 text-3xl font-bold">Con tu cuenta</div>
                             <div className="text-sm uppercase tracking-tighter opacity-80">
-                                Seguridad
-                            </div>
-                        </div>
-                        <div className="rounded-xl border border-white/20 bg-white/75 p-6 backdrop-blur-md">
-                            <div className="mb-1 text-3xl font-bold">24/7</div>
-                            <div className="text-sm uppercase tracking-tighter opacity-80">
-                                Monitoreo
+                                Registrate gratis y aprovechá todos los beneficios disponibles para usuarios registrados.
                             </div>
                         </div>
                     </div>
@@ -55,12 +48,12 @@ export default function AuthSimpleLayout({
                     <Link href="/" className="flex items-center gap-2">
                         <img
                             src="/img/LogoDTSE2.png"
-                            alt="Barrio Blindado"
+                            alt="DTSE LOGO"
                             className="h-10 w-auto dark:hidden"
                         />
                         <img
                             src="/img/LogoDTSE_dark.png"
-                            alt="Barrio Blindado"
+                            alt="DTSE LOGO"
                             className="hidden h-10 w-auto dark:block"
                         />
                     </Link>
