@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Form, Head } from '@inertiajs/react';
 import { Eye, EyeOff } from 'lucide-react';
 
+import GoogleButton from '@/components/google-button';
 import InputError from '@/components/input-error';
+import SocialDivider from '@/components/social-divider';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -12,18 +14,25 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthLayout from '@/layouts/auth-layout';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import { register } from '@/routes';
 
 type Props = {
     status?: string;
     canResetPassword: boolean;
+    canRegister: boolean;
 };
 
-export default function Login({ status, canResetPassword }: Props) {
+export default function Login({ status, canResetPassword, canRegister }: Props) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
         <AuthLayout title="Acceso al sistema">
             <Head title="Iniciar sesión" />
+
+            <GoogleButton href="/auth/google" />
+
+            <SocialDivider />
+
             <Form
                 {...store.form()}
                 resetOnSuccess={['password']}
@@ -116,6 +125,15 @@ export default function Login({ status, canResetPassword }: Props) {
                     </>
                 )}
             </Form>
+
+            {canRegister && (
+                <div className="text-center text-sm text-muted-foreground">
+                    ¿No tienes una cuenta?{' '}
+                    <TextLink href={register()} tabIndex={6}>
+                        Regístrate
+                    </TextLink>
+                </div>
+            )}
 
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">

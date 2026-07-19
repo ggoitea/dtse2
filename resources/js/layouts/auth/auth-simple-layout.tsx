@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 
-import { home } from '@/routes';
+// import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
 export default function AuthSimpleLayout({
@@ -14,7 +14,7 @@ export default function AuthSimpleLayout({
                 <div className="flex flex-col gap-8 bg-card p-6 sm:rounded-xl sm:border sm:shadow-sm">
                     <div className="flex flex-col items-center gap-4">
                         <Link
-                            href={home()}
+                            href="/"
                             className="flex flex-col items-center gap-2 font-medium"
                         >
                             <img

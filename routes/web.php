@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\EjemploController;
 use App\Http\Controllers\LandingController;
@@ -13,21 +14,9 @@ Route::get('/novedades', [NovedadesController::class, 'index'])->name('novedades
 Route::get('/sitios', [MapaController::class, 'index'])->name('sitios.mapa');
 Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
 
-// Rutas Guest
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', function () {
-        echo "Login page"; // Aquí puedes renderizar la vista de login o redirigir a la página de login
-    })->name('login');
-    Route::post('/login', function () {
-        // Aquí puedes manejar la lógica de autenticación
-    })->name('login.post');
-    Route::get('/register', function () {
-        echo "Register page"; // Aquí puedes renderizar la vista de registro o redirigir a la página de registro
-    })->name('register');
-    Route::post('/register', function () {
-        // Aquí puedes manejar la lógica de registro
-    })->name('register.post');
-});
+// Google OAuth routes (must be outside guest middleware since callback may need authenticated user)
+Route::get('/auth/google', [SocialiteController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [SocialiteController::class, 'callback'])->name('google.callback');
 
 // API for map data (JSON responses for react-leaflet)
 Route::get('/sitios/data', [MapaController::class, 'data'])->name('sitios.data');
@@ -41,7 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Rutas para cargar créditos
     Route::prefix('credito')->group(function () {
         Route::get('/recarga', function () {
-            echo "Cargar créditos page"; // Aquí puedes renderizar la vista de cargar créditos o redirigir a la página correspondiente
+            echo 'Cargar créditos page';
         })->name('credito.recarga');
     });
 
@@ -52,5 +41,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/platform.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/platform.php';

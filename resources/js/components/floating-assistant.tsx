@@ -4,8 +4,19 @@ import { AnimatePresence, motion } from 'motion/react';
 
 import type { ChatMessage } from '@/types/chat';
 import perfil from '@/assets/perfil_uritu.jpg';
-import { useHttp, usePage } from '@inertiajs/react';
+import { Link, useHttp, usePage } from '@inertiajs/react';
 import { asistente } from '@/routes/api';
+import { recarga } from '@/routes/credito';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface FloatingAssistantProps {
     onSuggestCity?: (city: string) => void;
@@ -33,6 +44,8 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     ]);
     const [inputValue, setInputValue] = useState('');
     const chatEndRef = useRef<HTMLDivElement>(null);
+    const [creditDialogOpen, setCreditDialogOpen] = useState(false);
+    const [creditDialogType, setCreditDialogType] = useState<'unauthenticated' | 'no-credits'>('unauthenticated');
 
     // Auto-scroll to the bottom of the conversation
     useEffect(() => {
@@ -93,6 +106,11 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                     timestamp: new Date(),
                 };
                 setMessages((prev) => [...prev, errorMsg]);
+
+                if (err.creditos) {
+                    setCreditDialogType(auth.user ? 'no-credits' : 'unauthenticated');
+                    setCreditDialogOpen(true);
+                }
             }
         });
     };
@@ -318,6 +336,41 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                     </motion.div>
                 )}
             </AnimatePresence >
+
+            {/* Credit limit AlertDialog */}
+            <AlertDialog open={creditDialogOpen} onOpenChange={setCreditDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>
+                            {creditDialogType === 'unauthenticated'
+                                ? 'Cuenta requerida'
+                                : 'Sin créditos disponibles'}
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                            {creditDialogType === 'unauthenticated'
+                                ? 'Para seguir consultando a Uritu, necesitás crear una cuenta o iniciar sesión si ya tenés una.'
+                                : 'Te quedaste sin créditos para realizar consultas. Recargá tu saldo para seguir usando el asistente.'}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cerrar</AlertDialogCancel>
+                        {creditDialogType === 'unauthenticated' ? (
+                            <>
+                                <AlertDialogAction asChild>
+                                    <Link href="/login">Iniciar sesión</Link>
+                                </AlertDialogAction>
+                                <AlertDialogAction asChild>
+                                    <Link href="/register">Registrarme</Link>
+                                </AlertDialogAction>
+                            </>
+                        ) : (
+                            <AlertDialogAction asChild>
+                                <Link href={recarga.url()}>Ir a recargar</Link>
+                            </AlertDialogAction>
+                        )}
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </>
     );
 }
