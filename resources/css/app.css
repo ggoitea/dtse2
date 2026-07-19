@@ -213,3 +213,46 @@
     --color-pressed: var(--pressed);
     --color-pressed-foreground: var(--pressed-foreground);
 }
+
+/* Custom user location marker for the map */
+.custom-user-marker {
+    background: none !important;
+    border: none !important;
+}
+
+.user-marker-pulse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border-radius: 50%;
+    background-color: rgba(0, 71, 171, 0.3);
+    animation: user-marker-pulse 2s ease-out infinite;
+}
+
+.user-marker-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+    border-radius: 50%;
+    background-color: #0047ab;
+    border: 2.5px solid white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes user-marker-pulse {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}

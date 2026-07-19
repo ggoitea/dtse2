@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
-import { Head, setLayoutProps } from '@inertiajs/react';
+import { setLayoutProps } from '@inertiajs/react';
 import type L from 'leaflet';
-import { Minus, Plus, Radar } from 'lucide-react';
+import { divIcon } from 'leaflet';
+import { Crosshair, Minus, Navigation, Plus, Radar } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -88,16 +89,45 @@ function MapEvents({ onMoveEnd }: { onMoveEnd: (center: L.LatLng) => void }) {
     return null;
 }
 
+function FlyToPosition({ position }: { position: Position }) {
+    const map = useMap();
+
+    useEffect(() => {
+        map.flyTo([position.lat, position.lng], 13, {
+            duration: 1.5,
+        });
+    }, [map, position.lat, position.lng]);
+
+    return null;
+}
+
 export default function MapaIndex() {
     const { t } = useTranslation(['mapa', 'common']);
     setLayoutProps({
         pageTitle: t('title'),
         browserTitle: t('title'),
     });
-    const [position, setPosition] = useState<Position>(defaultPosition);
+    const [userPosition, setUserPosition] = useState<Position | null>(null);
+    const [showRecenter, setShowRecenter] = useState(false);
     const [radio, setRadio] = useState(5);
+    const [flyTo, setFlyTo] = useState<Position | null>(null);
     const { sitios, loading, fetchSitios } = useSitiosFetcher();
     const initialLoadDone = useRef(false);
+    const lastFetchRef = useRef<string>('');
+
+    const triggerFetch = useCallback(
+        (lat: number, lng: number, r: number) => {
+            const key = `${lat.toFixed(4)}_${lng.toFixed(4)}_${r}`;
+
+            if (lastFetchRef.current === key) {
+                return;
+            }
+
+            lastFetchRef.current = key;
+            fetchSitios(lat, lng, r);
+        },
+        [fetchSitios],
+    );
 
     useEffect(() => {
         if (initialLoadDone.current) {
@@ -109,18 +139,15 @@ export default function MapaIndex() {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
                 (pos) => {
-                    setPosition({
-                        lat: pos.coords.latitude,
-                        lng: pos.coords.longitude,
-                    });
-                    fetchSitios(
-                        pos.coords.latitude,
-                        pos.coords.longitude,
-                        radio,
-                    );
+                    const posLat = pos.coords.latitude;
+                    const posLng = pos.coords.longitude;
+                    const userPos = { lat: posLat, lng: posLng };
+                    setUserPosition(userPos);
+                    setFlyTo(userPos);
+                    triggerFetch(posLat, posLng, radio);
                 },
                 () => {
-                    fetchSitios(
+                    triggerFetch(
                         defaultPosition.lat,
                         defaultPosition.lng,
                         radio,
@@ -128,20 +155,30 @@ export default function MapaIndex() {
                 },
             );
         } else {
-            fetchSitios(defaultPosition.lat, defaultPosition.lng, radio);
+            triggerFetch(defaultPosition.lat, defaultPosition.lng, radio);
         }
-    }, [fetchSitios, radio]);
+    }, [triggerFetch, radio]);
 
-    useEffect(() => {
-        if (!initialLoadDone.current) {
-            return;
+    const handleMoveEnd = useCallback(
+        (center: L.LatLng) => {
+            triggerFetch(center.lat, center.lng, radio);
+
+            if (userPosition) {
+                const distance = Math.sqrt(
+                    (center.lat - userPosition.lat) ** 2 +
+                    (center.lng - userPosition.lng) ** 2,
+                );
+                setShowRecenter(distance > 0.01);
+            }
+        },
+        [triggerFetch, radio, userPosition],
+    );
+
+    const handleRecenter = () => {
+        if (userPosition) {
+            setFlyTo(userPosition);
+            setShowRecenter(false);
         }
-
-        fetchSitios(position.lat, position.lng, radio);
-    }, [radio, fetchSitios, position.lat, position.lng]);
-
-    const handleMoveEnd = (center: L.LatLng) => {
-        setPosition({ lat: center.lat, lng: center.lng });
     };
 
     const adjustRadio = (delta: number) => {
@@ -152,7 +189,7 @@ export default function MapaIndex() {
         <>
             <div className="relative h-full w-full z-1 aqui1">
                 <MapContainer
-                    center={[position.lat, position.lng]}
+                    center={[defaultPosition.lat, defaultPosition.lng]}
                     zoom={13}
                     className="h-full w-full z-10"
                     zoomControl={false}
@@ -162,6 +199,28 @@ export default function MapaIndex() {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <MapEvents onMoveEnd={handleMoveEnd} />
+                    {flyTo && <FlyToPosition position={flyTo} />}
+
+                    {userPosition && (
+                        <Marker
+                            position={[
+                                userPosition.lat,
+                                userPosition.lng,
+                            ]}
+                            icon={divIcon({
+                                className: 'custom-user-marker',
+                                html: '<div class="user-marker-pulse"></div><div class="user-marker-dot"></div>',
+                                iconSize: [24, 24],
+                                iconAnchor: [12, 12],
+                            })}
+                        >
+                            <Popup>
+                                <span className="font-semibold">
+                                    {t('tu_ubicacion')}
+                                </span>
+                            </Popup>
+                        </Marker>
+                    )}
 
                     {sitios.map((sitio) => (
                         <Marker
@@ -188,6 +247,18 @@ export default function MapaIndex() {
                                             {t('km')}
                                         </p>
                                     )}
+                                    <Button className='text-foreground w-full' variant={'default'} asChild>
+                                        <a
+                                            href={`https://www.google.com/maps/dir/?api=1&destination=${sitio.latitud},${sitio.longitud}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+
+                                        >
+                                            <Navigation className="h-3 w-3 text-foreground" />
+                                            <span className='text-foreground'>{t('como_llegar')}</span>
+                                        </a>
+                                    </Button>
+
                                 </div>
                             </Popup>
                         </Marker>
@@ -214,6 +285,21 @@ export default function MapaIndex() {
                         <Minus className="h-4 w-4" />
                     </Button>
                 </div>
+
+                {/* Recenter button */}
+                {showRecenter && (
+                    <div className="absolute bottom-8 left-1/2 z-[1000] -translate-x-1/2">
+                        <Button
+                            variant="default"
+                            size="sm"
+                            className="shadow-lg"
+                            onClick={handleRecenter}
+                        >
+                            <Crosshair className="mr-2 h-4 w-4" />
+                            {t('tu_ubicacion')}
+                        </Button>
+                    </div>
+                )}
 
                 {/* Info overlay */}
                 <div className="absolute top-4 left-4 z-[1000]">
