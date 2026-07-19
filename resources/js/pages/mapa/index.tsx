@@ -158,7 +158,7 @@ export default function MapaIndex() {
                     zoomControl={false}
                 >
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        attribution='&copy; <a href="https://dtse.com.ar">DTSE</a>'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
                     <MapEvents onMoveEnd={handleMoveEnd} />
