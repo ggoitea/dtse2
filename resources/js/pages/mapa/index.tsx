@@ -89,7 +89,7 @@ function MapEvents({ onMoveEnd }: { onMoveEnd: (center: L.LatLng) => void }) {
 }
 
 export default function MapaIndex() {
-    const { t } = useTranslation(['novedades', 'common']);
+    const { t } = useTranslation(['mapa', 'common']);
     setLayoutProps({
         pageTitle: t('title'),
         browserTitle: t('title'),
@@ -150,11 +150,11 @@ export default function MapaIndex() {
 
     return (
         <>
-            <div className="relative h-screen w-full">
+            <div className="relative h-full w-full z-1 aqui1">
                 <MapContainer
                     center={[position.lat, position.lng]}
                     zoom={13}
-                    className="h-full w-full"
+                    className="h-full w-full z-10"
                     zoomControl={false}
                 >
                     <TileLayer
@@ -195,7 +195,7 @@ export default function MapaIndex() {
                 </MapContainer>
 
                 {/* Controls overlay */}
-                <div className="absolute right-4 bottom-24 z-[1000] flex flex-col gap-2">
+                <div className="absolute right-4 top-10 z-20 flex flex-col gap-2">
                     <Button
                         size="icon"
                         variant="secondary"

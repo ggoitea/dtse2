@@ -99,11 +99,11 @@ export function AdaptiveLayout({
 
     return (
         <>
-            <div className="min-h-screen bg-background font-sans text-foreground selection:bg-white/20">
+            <div className="flex h-dvh flex-col bg-background font-sans text-foreground selection:bg-white/20">
                 {/* Header */}
                 <Header title={pageTitle} actions={headerActions} icon={icon} />
                 {/* Main Content Area */}
-                <main className="mx-auto max-w-lg px-4 pt-20 pb-32">
+                <main className="mx-auto w-full max-w-lg flex-1 overflow-y-auto px-4 pt-20 pb-16">
                     <AnimatePresence mode="wait">
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
@@ -120,6 +120,7 @@ export function AdaptiveLayout({
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
+                            className="h-full"
                         >
                             {children}
                         </motion.div>
