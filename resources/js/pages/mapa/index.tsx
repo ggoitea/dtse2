@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
-import { Head } from '@inertiajs/react';
+import { Head, setLayoutProps } from '@inertiajs/react';
 import type L from 'leaflet';
 import { Minus, Plus, Radar } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 
 type SitioMapa = {
     id: number;
@@ -88,7 +89,11 @@ function MapEvents({ onMoveEnd }: { onMoveEnd: (center: L.LatLng) => void }) {
 }
 
 export default function MapaIndex() {
-    const { t } = useTranslation(['mapa', 'common']);
+    const { t } = useTranslation(['novedades', 'common']);
+    setLayoutProps({
+        pageTitle: t('title'),
+        browserTitle: t('title'),
+    });
     const [position, setPosition] = useState<Position>(defaultPosition);
     const [radio, setRadio] = useState(5);
     const { sitios, loading, fetchSitios } = useSitiosFetcher();
@@ -145,8 +150,6 @@ export default function MapaIndex() {
 
     return (
         <>
-            <Head title={t('title')} />
-
             <div className="relative h-screen w-full">
                 <MapContainer
                     center={[position.lat, position.lng]}
@@ -237,3 +240,5 @@ export default function MapaIndex() {
         </>
     );
 }
+
+MapaIndex.layout = [AdaptiveLayout];
