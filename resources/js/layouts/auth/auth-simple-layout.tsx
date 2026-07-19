@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
 
-// import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
 export default function AuthSimpleLayout({
@@ -9,34 +8,71 @@ export default function AuthSimpleLayout({
     description,
 }: AuthLayoutProps) {
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center bg-card sm:bg-background sm:p-6 md:p-10">
-            <div className="w-full max-w-sm">
-                <div className="flex flex-col gap-8 bg-card p-6 sm:rounded-xl sm:border sm:shadow-sm">
-                    <div className="flex flex-col items-center gap-4">
-                        <Link
-                            href="/"
-                            className="flex flex-col items-center gap-2 font-medium"
-                        >
-                            <img
-                                src="/img/logo_isologo748x334.png"
-                                alt="Barrio Blindado"
-                                className="h-18 w-auto sm:h-22 dark:hidden"
-                            />
-                            <img
-                                src="/img/logo-vb.png"
-                                alt="Barrio Blindado"
-                                className="hidden h-18 w-auto sm:h-22 dark:block"
-                            />
-                            <span className="sr-only">{title}</span>
-                        </Link>
+        <div className="flex min-h-screen w-full">
+            {/* Left Side: Visual/Branding */}
+            <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden items-center justify-center p-12">
+                <div
+                    className="absolute inset-0 z-0 bg-cover bg-center"
+                    style={{ backgroundImage: "url('/img/novedades_hero.png')" }}
+                />
+                <div className="absolute inset-0 z-10 bg-black/50 backdrop-blur-[2px]" />
 
-                        <div className="space-y-2 text-center">
-                            <h1 className="text-xl font-medium">{title}</h1>
-                            <p className="text-center text-sm text-muted-foreground">
-                                {description}
-                            </p>
+                {/* Branding Content */}
+                <div className="relative z-20 text-white max-w-lg">
+                    <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-4 py-2 backdrop-blur-md">
+                        <span className="font-semibold tracking-wider">BARRIO BLINDADO</span>
+                    </div>
+                    <h1 className="mb-6 text-5xl font-bold leading-tight">
+                        Tu seguridad comienza aquí.
+                    </h1>
+                    <p className="mb-10 text-lg leading-relaxed opacity-90">
+                        Únete a nuestra comunidad y accede a los mejores servicios de seguridad
+                        para tu barrio y tu familia.
+                    </p>
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="rounded-xl border border-white/20 bg-white/75 p-6 backdrop-blur-md">
+                            <div className="mb-1 text-3xl font-bold">100%</div>
+                            <div className="text-sm uppercase tracking-tighter opacity-80">
+                                Seguridad
+                            </div>
+                        </div>
+                        <div className="rounded-xl border border-white/20 bg-white/75 p-6 backdrop-blur-md">
+                            <div className="mb-1 text-3xl font-bold">24/7</div>
+                            <div className="text-sm uppercase tracking-tighter opacity-80">
+                                Monitoreo
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Right Side: Form */}
+            <div className="relative flex w-full items-center justify-center bg-background p-6 md:p-12 lg:w-1/2 lg:p-24">
+                {/* Mobile Logo */}
+                <div className="absolute left-8 top-8 flex items-center gap-2 lg:hidden">
+                    <Link href="/" className="flex items-center gap-2">
+                        <img
+                            src="/img/LogoDTSE2.png"
+                            alt="Barrio Blindado"
+                            className="h-10 w-auto dark:hidden"
+                        />
+                        <img
+                            src="/img/LogoDTSE_dark.png"
+                            alt="Barrio Blindado"
+                            className="hidden h-10 w-auto dark:block"
+                        />
+                    </Link>
+                </div>
+
+                <div className="w-full max-w-md space-y-8">
+                    {/* Header */}
+                    <div className="space-y-2">
+                        <h2 className="text-2xl font-bold md:text-3xl">{title}</h2>
+                        <p className="text-muted-foreground">{description}</p>
+                    </div>
+
                     {children}
                 </div>
             </div>
