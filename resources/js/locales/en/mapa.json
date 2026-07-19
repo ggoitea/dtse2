@@ -11,5 +11,7 @@
     "tu_ubicacion": "Your location",
     "distancia": "Distance",
     "km": "km",
-    "como_llegar": "How to get there"
+    "como_llegar": "How to get there",
+    "filtrar_categoria": "Filter category",
+    "todas": "All"
 }

@@ -8,6 +8,13 @@ import { Crosshair, Minus, Navigation, Plus, Radar } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 
 type SitioMapa = {
@@ -112,6 +119,16 @@ export default function MapaIndex() {
     const [radio, setRadio] = useState(5);
     const [flyTo, setFlyTo] = useState<Position | null>(null);
     const { sitios, loading, fetchSitios } = useSitiosFetcher();
+    const [categoriaFilter, setCategoriaFilter] = useState<string>('all');
+
+    const categorias = [
+        ...new Set(sitios.map((s) => s.categoria).filter(Boolean)),
+    ];
+
+    const sitiosFiltrados =
+        categoriaFilter === 'all'
+            ? sitios
+            : sitios.filter((s) => s.categoria === categoriaFilter);
     const initialLoadDone = useRef(false);
     const lastFetchRef = useRef<string>('');
 
@@ -222,7 +239,7 @@ export default function MapaIndex() {
                         </Marker>
                     )}
 
-                    {sitios.map((sitio) => (
+                    {sitiosFiltrados.map((sitio) => (
                         <Marker
                             key={sitio.id}
                             position={[
@@ -304,11 +321,39 @@ export default function MapaIndex() {
                 {/* Info overlay */}
                 <div className="absolute top-4 left-4 z-[1000]">
                     <Card>
-                        <CardContent className="flex items-center gap-2 p-3">
-                            <Radar className="h-4 w-4 text-primary" />
-                            <span className="text-sm">
-                                {sitios.length} {t('sitios_encontrados')}
-                            </span>
+                        <CardContent className="flex flex-col gap-2 p-3">
+                            <div className="flex items-center gap-2">
+                                <Radar className="h-4 w-4 text-primary" />
+                                <span className="text-sm">
+                                    {sitiosFiltrados.length}{' '}
+                                    {t('sitios_encontrados')}
+                                </span>
+                            </div>
+                            {categorias.length > 0 && (
+                                <Select
+                                    value={categoriaFilter}
+                                    onValueChange={setCategoriaFilter}
+                                >
+                                    <SelectTrigger className="h-8 text-xs">
+                                        <SelectValue
+                                            placeholder={t('filtrar_categoria')}
+                                        />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="all">
+                                            {t('todas')}
+                                        </SelectItem>
+                                        {categorias.map((cat) => (
+                                            <SelectItem
+                                                key={cat}
+                                                value={cat}
+                                            >
+                                                {cat}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            )}
                         </CardContent>
                     </Card>
                 </div>
