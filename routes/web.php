@@ -13,6 +13,22 @@ Route::get('/novedades', [NovedadesController::class, 'index'])->name('novedades
 Route::get('/sitios', [MapaController::class, 'index'])->name('sitios.mapa');
 Route::post('/contacto', [ContactoController::class, 'store'])->name('contacto.store');
 
+// Rutas Guest
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', function () {
+        echo "Login page"; // Aquí puedes renderizar la vista de login o redirigir a la página de login
+    })->name('login');
+    Route::post('/login', function () {
+        // Aquí puedes manejar la lógica de autenticación
+    })->name('login.post');
+    Route::get('/register', function () {
+        echo "Register page"; // Aquí puedes renderizar la vista de registro o redirigir a la página de registro
+    })->name('register');
+    Route::post('/register', function () {
+        // Aquí puedes manejar la lógica de registro
+    })->name('register.post');
+});
+
 // API for map data (JSON responses for react-leaflet)
 Route::get('/sitios/data', [MapaController::class, 'data'])->name('sitios.data');
 Route::get('/api/departamentos', [MapaController::class, 'departamentos'])->name('api.departamentos');
@@ -22,6 +38,13 @@ Route::get('/api/localidades', [MapaController::class, 'localidades'])->name('ap
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 
+    // Rutas para cargar créditos
+    Route::prefix('credito')->group(function () {
+        Route::get('/recarga', function () {
+            echo "Cargar créditos page"; // Aquí puedes renderizar la vista de cargar créditos o redirigir a la página correspondiente
+        })->name('credito.recarga');
+    });
+
     Route::prefix('ejemplos')->group(function () {
         Route::get('/esqueleto', [EjemploController::class, 'esqueleto'])->name('ejemplo.esqueleto');
         Route::get('/tabla-con-filtros', [EjemploController::class, 'tablaConFiltros'])->name('ejemplo.tablaConFiltros');
@@ -29,5 +52,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/platform.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/platform.php';

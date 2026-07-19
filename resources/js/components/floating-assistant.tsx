@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 
 import type { ChatMessage } from '@/types/chat';
 import perfil from '@/assets/perfil_uritu.jpg';
-import { useHttp } from '@inertiajs/react';
+import { useHttp, usePage } from '@inertiajs/react';
 import { asistente } from '@/routes/api';
 
 interface FloatingAssistantProps {
@@ -19,6 +19,8 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     const { data, setData, post, processing, errors } = useHttp({
         consulta: ''
     })
+    const { auth } = usePage().props
+
 
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([
