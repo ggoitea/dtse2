@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { router, setLayoutProps } from '@inertiajs/react';
-import { Package } from 'lucide-react';
+import { Package, Plus } from 'lucide-react';
 
 import { AdaptiveTable } from '@/components/blocks/adaptive-table';
 import type {
@@ -11,25 +11,60 @@ import type {
 import InputSimpleSearch from '@/components/blocks/input-simple-search';
 import { usePermissions } from '@/hooks/use-permissions';
 import { AdaptiveLayout } from '@/layouts/adaptive-layout';
-import { create, index } from '@/routes/paquetes';
+import { index } from '@/routes/paquetes';
 
+import CreatePaqueteDrawer from './components/create-drawer';
 import { columns } from './components/index-columns';
 import PaqueteMobileCard from './components/index-mobile-card';
 import type { PaqueteTuristico } from './types/paquete';
+
+interface Localidad {
+    id: number;
+    nombre: string;
+}
+
+interface Sitio {
+    id: number;
+    nombre: string;
+    localidad_id: number;
+}
+
+interface Evento {
+    id: number;
+    nombre: string;
+    localidad_id: number;
+}
+
+interface CategoriaOption {
+    value: string;
+    label: string;
+}
 
 interface Props {
     paquetes: CollectionData<PaqueteTuristico>;
     filtros: {
         buscar: string | null;
     };
+    localidades: Localidad[];
+    sitios: Sitio[];
+    eventos: Evento[];
+    categorias: CategoriaOption[];
 }
 
-export default function PaquetesIndex({ paquetes, filtros }: Props) {
-
+export default function PaquetesIndex({
+    paquetes,
+    filtros,
+    localidades,
+    sitios,
+    eventos,
+    categorias,
+}: Props) {
     const tableRef = useRef<DataTableRef>(null);
     const [processing, setProcessing] = useState(false);
-    const { can } = usePermissions();
+    const [showCreateDrawer, setShowCreateDrawer] = useState(false);
+    const { hasAnyRole } = usePermissions();
     const { t } = useTranslation(['paquetes', 'common']);
+
     const handleSearch = (value: string) => {
         tableRef.current?.resetPagination();
         router.reload({
@@ -47,10 +82,6 @@ export default function PaquetesIndex({ paquetes, filtros }: Props) {
         });
     };
 
-    const goToCreate = () => {
-        router.visit(create.url());
-    };
-
     useEffect(() => {
         setLayoutProps({
             pageTitle: t('page_title'),
@@ -62,31 +93,42 @@ export default function PaquetesIndex({ paquetes, filtros }: Props) {
                 {
                     id: 'new-paquete',
                     label: t('nuevo_paquete'),
-                    icon: Package,
-                    onClick: goToCreate,
-                    show: can('paquetes.create'),
+                    icon: Plus,
+                    onClick: () => setShowCreateDrawer(true),
+                    show: hasAnyRole(['owner']),
                 },
             ],
         });
     }, []);
 
     return (
-        <AdaptiveTable
-            ref={tableRef}
-            columns={columns}
-            data={paquetes}
-            MobileTemplate={PaqueteMobileCard}
-            onPageChange={handlePageChange}
-            header={
-                <InputSimpleSearch
-                    className="max-w-xs"
-                    placeholder={`${t('common:buscar')}...`}
-                    value={filtros.buscar ?? ''}
-                    processing={processing}
-                    onSearch={handleSearch}
-                />
-            }
-        />
+        <>
+            <AdaptiveTable
+                ref={tableRef}
+                columns={columns}
+                data={paquetes}
+                MobileTemplate={PaqueteMobileCard}
+                onPageChange={handlePageChange}
+                header={
+                    <InputSimpleSearch
+                        className="max-w-xs"
+                        placeholder={`${t('common:buscar')}...`}
+                        value={filtros.buscar ?? ''}
+                        processing={processing}
+                        onSearch={handleSearch}
+                    />
+                }
+            />
+
+            <CreatePaqueteDrawer
+                open={showCreateDrawer}
+                onOpenChange={setShowCreateDrawer}
+                localidades={localidades}
+                sitios={sitios}
+                eventos={eventos}
+                categorias={categorias}
+            />
+        </>
     );
 }
 

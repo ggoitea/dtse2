@@ -30,6 +30,10 @@ class PaqueteController extends Controller
                 filtros: $request->only(['buscar']),
             )),
             'filtros' => $request->only(['buscar']),
+            'localidades' => fn () => Localidad::orderBy('nombre')->get(['id', 'nombre']),
+            'sitios' => fn () => Sitio::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
+            'eventos' => fn () => Evento::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
+            'categorias' => PaqueteCategoriaEnum::options(),
         ]);
     }
 

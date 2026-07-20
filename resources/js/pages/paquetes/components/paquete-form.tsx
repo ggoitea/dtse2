@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
     Select,
     SelectContent,
@@ -12,6 +11,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface Localidad {
     id: number;
@@ -73,20 +73,26 @@ interface Props {
     eventos: Evento[];
     categorias: CategoriaOption[];
     isEdit?: boolean;
+    hideSubmitButton?: boolean;
 }
 
-export function PaqueteForm({
-    data,
-    setData,
-    errors,
-    processing,
-    onSubmit,
-    submitLabel,
-    localidades,
-    sitios,
-    eventos,
-    categorias,
-}: Props) {
+export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
+    function PaqueteForm(
+        {
+            data,
+            setData,
+            errors,
+            processing,
+            onSubmit,
+            submitLabel,
+            localidades,
+            sitios,
+            eventos,
+            categorias,
+            hideSubmitButton = false,
+        },
+        ref,
+    ) {
     const [asociacion, setAsociacion] = useState<
         'sitio' | 'evento' | 'nuevo_evento'
     >(
@@ -128,7 +134,7 @@ export function PaqueteForm({
     };
 
     return (
-        <form onSubmit={onSubmit} className="space-y-6">
+        <form ref={ref} onSubmit={onSubmit} className="space-y-6">
             <div className="grid gap-4">
                 <div className="grid gap-2">
                     <Label htmlFor="evento_localidad_id">Nodo</Label>
@@ -156,38 +162,33 @@ export function PaqueteForm({
 
                 <div className="grid gap-2">
                     <Label>Asociar a</Label>
-                    <RadioGroup
+                    <ToggleGroup
+                        type="single"
                         value={asociacion}
-                        onValueChange={(
-                            value: 'sitio' | 'evento' | 'nuevo_evento',
-                        ) => setAsociacion(value)}
-                        className="flex flex-row gap-4"
+                        onValueChange={(value) => {
+                            if (value) {
+                                setAsociacion(
+                                    value as 'sitio' | 'evento' | 'nuevo_evento',
+                                );
+                            }
+                        }}
+                        variant="outline"
+                        spacing={0}
+                        className="w-full"
                     >
-                        <div className="flex items-center gap-2">
-                            <RadioGroupItem value="sitio" id="asoc_sitio" />
-                            <Label htmlFor="asoc_sitio" className="font-normal">
-                                Sitio
-                            </Label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <RadioGroupItem value="evento" id="asoc_evento" />
-                            <Label
-                                htmlFor="asoc_evento"
-                                className="font-normal"
-                            >
-                                Evento existente
-                            </Label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <RadioGroupItem
-                                value="nuevo_evento"
-                                id="asoc_nuevo"
-                            />
-                            <Label htmlFor="asoc_nuevo" className="font-normal">
-                                Nuevo evento
-                            </Label>
-                        </div>
-                    </RadioGroup>
+                        <ToggleGroupItem value="sitio" className="flex-1">
+                            Sitio
+                        </ToggleGroupItem>
+                        <ToggleGroupItem value="evento" className="flex-1">
+                            Evento existente
+                        </ToggleGroupItem>
+                        <ToggleGroupItem
+                            value="nuevo_evento"
+                            className="flex-1"
+                        >
+                            Nuevo evento
+                        </ToggleGroupItem>
+                    </ToggleGroup>
                 </div>
 
                 {asociacion === 'sitio' && data.evento_data.localidad_id && (
@@ -463,11 +464,14 @@ export function PaqueteForm({
                 </div>
             </div>
 
-            <div className="flex items-center justify-end">
-                <Button type="submit" disabled={processing}>
-                    {processing ? 'Guardando...' : submitLabel}
-                </Button>
-            </div>
+            {!hideSubmitButton && (
+                <div className="flex items-center justify-end">
+                    <Button type="submit" disabled={processing}>
+                        {processing ? 'Guardando...' : submitLabel}
+                    </Button>
+                </div>
+            )}
         </form>
     );
-}
+},
+);
