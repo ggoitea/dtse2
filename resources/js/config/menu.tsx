@@ -1,8 +1,10 @@
-import { Compass, Contact2, Heart, Map, MessageCircle, Sparkles } from 'lucide-react';
+import { Compass, Contact2, Heart, Map, MessageCircle, Package, Sparkles } from 'lucide-react';
 
 import type { NavItemBottomMobile } from '@/layouts/adaptative/BottomNav';
 import { landing } from '@/routes';
 import { novedades } from '@/routes'
+import { index as eventosIndex } from '@/routes/eventos';
+import { index as paquetesIndex } from '@/routes/paquetes';
 import { mapa } from '@/routes/sitios'
 
 export const accesoRapido: NavItemBottomMobile[] = [
@@ -19,9 +21,9 @@ export const accesoRapido: NavItemBottomMobile[] = [
         isActive: false,
     },
     {
-        title: 'Paquete tursitico',
-        href: '/',
-        icon: Heart,
+        title: 'Paquete turístico',
+        href: paquetesIndex().url,
+        icon: Package,
         isActive: false,
     },
     {

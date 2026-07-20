@@ -6,13 +6,14 @@ use App\Enums\SitioCategoriaEnum;
 use App\Enums\SitioEstadoEnum;
 use App\Traits\HasArchivos;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sitio extends Model
 {
-    use HasArchivos;
+    use HasArchivos, HasFactory;
 
     protected $fillable = [
         'localidad_id',

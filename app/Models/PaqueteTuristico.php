@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Enums\PaqueteCategoriaEnum;
 use App\Enums\PaqueteEstadoEnum;
 use App\Traits\HasArchivos;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class PaqueteTuristico extends Model
 {
-    use HasArchivos;
+    use HasArchivos, HasFactory;
 
     protected $table = 'paquete_turisticos';
 

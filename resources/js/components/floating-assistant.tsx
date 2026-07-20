@@ -118,7 +118,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     const handleSuggestionClick = (prompt: string) => {
         handleSendMessage(prompt);
     };
-    console.log(errors)
+
     return (
         <>
             {/* Draggable Floating Globe Balloon button using Framer Motion */}
@@ -129,7 +129,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                 whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="fixed right-6 bottom-20 z-50 cursor-grab md:bottom-8"
+                className="fixed left-6 bottom-20 z-50 cursor-grab md:bottom-8"
                 style={{ touchAction: 'none' }} // Prevents page scroll during drag on mobile
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
