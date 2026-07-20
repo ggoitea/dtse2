@@ -4,7 +4,13 @@ export interface PaqueteTuristico {
     modelable_id: number;
     nombre: string;
     descripcion: string | null;
-    categoria: 'aventura' | 'cultura' | 'relax' | 'familiar' | 'romantico' | 'negocios';
+    categoria:
+        | 'aventura'
+        | 'cultura'
+        | 'relax'
+        | 'familiar'
+        | 'romantico'
+        | 'negocios';
     destino: string | null;
     duracion: string | null;
     estado: 'activo' | 'agotado' | 'suspendido' | 'cancelado';

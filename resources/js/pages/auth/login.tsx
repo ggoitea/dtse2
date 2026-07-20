@@ -22,7 +22,11 @@ type Props = {
     canRegister: boolean;
 };
 
-export default function Login({ status, canResetPassword, canRegister }: Props) {
+export default function Login({
+    status,
+    canResetPassword,
+    canRegister,
+}: Props) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (

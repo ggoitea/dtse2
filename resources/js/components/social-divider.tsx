@@ -2,7 +2,9 @@ interface SocialDividerProps {
     text?: string;
 }
 
-export default function SocialDivider({ text = 'O continúa con' }: SocialDividerProps) {
+export default function SocialDivider({
+    text = 'O continúa con',
+}: SocialDividerProps) {
     return (
         <div className="relative my-2">
             <div className="absolute inset-0 flex items-center">

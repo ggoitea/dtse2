@@ -28,10 +28,9 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     const messageIdRef = useRef(0);
     const { onSuggestCity } = props;
     const { data, setData, post, processing, errors } = useHttp({
-        consulta: ''
-    })
-    const { auth } = usePage().props
-
+        consulta: '',
+    });
+    const { auth } = usePage().props;
 
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([
@@ -45,7 +44,9 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
     const [inputValue, setInputValue] = useState('');
     const chatEndRef = useRef<HTMLDivElement>(null);
     const [creditDialogOpen, setCreditDialogOpen] = useState(false);
-    const [creditDialogType, setCreditDialogType] = useState<'unauthenticated' | 'no-credits'>('unauthenticated');
+    const [creditDialogType, setCreditDialogType] = useState<
+        'unauthenticated' | 'no-credits'
+    >('unauthenticated');
 
     // Auto-scroll to the bottom of the conversation
     useEffect(() => {
@@ -85,7 +86,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
 
         setMessages((prev) => [...prev, userMsg]);
         setInputValue('');
-        setData('consulta', text.trim())
+        setData('consulta', text.trim());
 
         post(asistente.url(), {
             onSuccess: (response) => {
@@ -98,20 +99,23 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                 setMessages((prev) => [...prev, assistantMsg]);
             },
             onError: (err) => {
-
                 const errorMsg: ChatMessage = {
                     id: (++messageIdRef.current).toString(),
                     sender: 'assistant',
-                    text: err.creditos ? '¡Uy! Parece que hubo un problema. ' + err.creditos : '¡Uy! Parece que hubo un problema de conexión con mi servidor. De todos modos, ¡déjame contarte que Santiago del Estero es famosa por sus empanadas santiagueñas al horno de barro, el cabrito, y sus cálidas peñas como la de la familia Carabajal! ¿Qué más te gustaría saber?',
+                    text: err.creditos
+                        ? '¡Uy! Parece que hubo un problema. ' + err.creditos
+                        : '¡Uy! Parece que hubo un problema de conexión con mi servidor. De todos modos, ¡déjame contarte que Santiago del Estero es famosa por sus empanadas santiagueñas al horno de barro, el cabrito, y sus cálidas peñas como la de la familia Carabajal! ¿Qué más te gustaría saber?',
                     timestamp: new Date(),
                 };
                 setMessages((prev) => [...prev, errorMsg]);
 
                 if (err.creditos) {
-                    setCreditDialogType(auth.user ? 'no-credits' : 'unauthenticated');
+                    setCreditDialogType(
+                        auth.user ? 'no-credits' : 'unauthenticated',
+                    );
                     setCreditDialogOpen(true);
                 }
-            }
+            },
         });
     };
 
@@ -129,7 +133,7 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                 whileDrag={{ scale: 1.1, cursor: 'grabbing' }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="fixed left-6 bottom-20 z-50 cursor-grab md:bottom-8"
+                className="fixed bottom-20 left-6 z-50 cursor-grab md:bottom-8"
                 style={{ touchAction: 'none' }} // Prevents page scroll during drag on mobile
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -188,7 +192,10 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
 
                             <div className="relative flex items-center gap-2.5">
                                 <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-                                    <img src={perfil} className="h-9 w-9 rounded-full  bg-white/10" />
+                                    <img
+                                        src={perfil}
+                                        className="h-9 w-9 rounded-full bg-white/10"
+                                    />
                                 </div>
                                 <div>
                                     <h3 className="font-montserrat flex items-center gap-1.5 text-sm leading-none font-bold">
@@ -217,17 +224,19 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                                 return (
                                     <div
                                         key={msg.id}
-                                        className={`flex max-w-[85%] items-start gap-2 ${isAssistant
-                                            ? 'self-start'
-                                            : 'flex-row-reverse self-end'
-                                            }`}
+                                        className={`flex max-w-[85%] items-start gap-2 ${
+                                            isAssistant
+                                                ? 'self-start'
+                                                : 'flex-row-reverse self-end'
+                                        }`}
                                     >
                                         {/* Avatar circle */}
                                         <div
-                                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isAssistant
-                                                ? 'bg-[#00327d]/10 text-[#00327d]'
-                                                : 'bg-[#fcd400]/20 text-[#705d00]'
-                                                }`}
+                                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                                                isAssistant
+                                                    ? 'bg-[#00327d]/10 text-[#00327d]'
+                                                    : 'bg-[#fcd400]/20 text-[#705d00]'
+                                            }`}
                                         >
                                             {isAssistant ? (
                                                 <Compass className="h-4 w-4" />
@@ -239,10 +248,11 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                                         {/* Bubble box */}
                                         <div className="flex flex-col">
                                             <div
-                                                className={`rounded-2xl p-3 text-sm leading-relaxed shadow-sm ${isAssistant
-                                                    ? 'rounded-tl-none border border-white/40 bg-white/60 text-gray-800 backdrop-blur-sm'
-                                                    : 'rounded-tr-none bg-[#00327d]/90 text-white backdrop-blur-sm'
-                                                    }`}
+                                                className={`rounded-2xl p-3 text-sm leading-relaxed shadow-sm ${
+                                                    isAssistant
+                                                        ? 'rounded-tl-none border border-white/40 bg-white/60 text-gray-800 backdrop-blur-sm'
+                                                        : 'rounded-tr-none bg-[#00327d]/90 text-white backdrop-blur-sm'
+                                                }`}
                                             >
                                                 <p className="whitespace-pre-line">
                                                     {msg.text}
@@ -324,10 +334,11 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                             <button
                                 type="submit"
                                 disabled={!inputValue.trim() || processing}
-                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${inputValue.trim() && !processing
-                                    ? 'bg-[#00327d] text-white shadow-md active:scale-95'
-                                    : 'bg-gray-100 text-gray-300'
-                                    }`}
+                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${
+                                    inputValue.trim() && !processing
+                                        ? 'bg-[#00327d] text-white shadow-md active:scale-95'
+                                        : 'bg-gray-100 text-gray-300'
+                                }`}
                                 id="assistant-send-btn"
                             >
                                 <Send className="h-4.5 w-4.5" />
@@ -335,10 +346,13 @@ export function FloatingAssistant(props: FloatingAssistantProps) {
                         </form>
                     </motion.div>
                 )}
-            </AnimatePresence >
+            </AnimatePresence>
 
             {/* Credit limit AlertDialog */}
-            <AlertDialog open={creditDialogOpen} onOpenChange={setCreditDialogOpen}>
+            <AlertDialog
+                open={creditDialogOpen}
+                onOpenChange={setCreditDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>

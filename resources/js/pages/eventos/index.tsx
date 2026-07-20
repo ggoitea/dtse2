@@ -4,7 +4,10 @@ import { router, usePage } from '@inertiajs/react';
 import { Calendar } from 'lucide-react';
 
 import { AdaptiveTable } from '@/components/blocks/adaptive-table';
-import type { CollectionData, DataTableRef } from '@/components/blocks/data-table';
+import type {
+    CollectionData,
+    DataTableRef,
+} from '@/components/blocks/data-table';
 import InputSimpleSearch from '@/components/blocks/input-simple-search';
 import { usePermissions } from '@/hooks/use-permissions';
 import { AdaptiveLayout } from '@/layouts/adaptative-layout';

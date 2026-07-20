@@ -1,6 +1,13 @@
 import { useState } from 'react';
-import { Link,router } from '@inertiajs/react';
-import { Calendar, CalendarDays, MapPin, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+import { Link, router } from '@inertiajs/react';
+import {
+    Calendar,
+    CalendarDays,
+    MapPin,
+    MoreHorizontal,
+    Pencil,
+    Trash2,
+} from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';

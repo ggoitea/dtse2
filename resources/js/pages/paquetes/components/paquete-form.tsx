@@ -88,14 +88,16 @@ export function PaqueteForm({
     categorias,
     isEdit = false,
 }: Props) {
-    const [asociacion, setAsociacion] = useState<'sitio' | 'evento' | 'nuevo_evento'>(
+    const [asociacion, setAsociacion] = useState<
+        'sitio' | 'evento' | 'nuevo_evento'
+    >(
         data.modelable_type === 'App\\Models\\Sitio'
             ? 'sitio'
             : data.modelable_type === 'App\\Models\\Evento'
-                ? 'evento'
-                : data.evento_data.nombre
-                    ? 'nuevo_evento'
-                    : 'sitio',
+              ? 'evento'
+              : data.evento_data.nombre
+                ? 'nuevo_evento'
+                : 'sitio',
     );
 
     const sitiosFiltrados = sitios.filter(
@@ -157,9 +159,9 @@ export function PaqueteForm({
                     <Label>Asociar a</Label>
                     <RadioGroup
                         value={asociacion}
-                        onValueChange={(value: 'sitio' | 'evento' | 'nuevo_evento') =>
-                            setAsociacion(value)
-                        }
+                        onValueChange={(
+                            value: 'sitio' | 'evento' | 'nuevo_evento',
+                        ) => setAsociacion(value)}
                         className="flex flex-row gap-4"
                     >
                         <div className="flex items-center gap-2">
@@ -170,12 +172,18 @@ export function PaqueteForm({
                         </div>
                         <div className="flex items-center gap-2">
                             <RadioGroupItem value="evento" id="asoc_evento" />
-                            <Label htmlFor="asoc_evento" className="font-normal">
+                            <Label
+                                htmlFor="asoc_evento"
+                                className="font-normal"
+                            >
                                 Evento existente
                             </Label>
                         </div>
                         <div className="flex items-center gap-2">
-                            <RadioGroupItem value="nuevo_evento" id="asoc_nuevo" />
+                            <RadioGroupItem
+                                value="nuevo_evento"
+                                id="asoc_nuevo"
+                            />
                             <Label htmlFor="asoc_nuevo" className="font-normal">
                                 Nuevo evento
                             </Label>
@@ -188,10 +196,15 @@ export function PaqueteForm({
                         <Label>Sitio</Label>
                         <Select
                             value={
-                                data.modelable_id ? String(data.modelable_id) : ''
+                                data.modelable_id
+                                    ? String(data.modelable_id)
+                                    : ''
                             }
                             onValueChange={(value) =>
-                                setData('modelable_id', value ? Number(value) : '')
+                                setData(
+                                    'modelable_id',
+                                    value ? Number(value) : '',
+                                )
                             }
                         >
                             <SelectTrigger>
@@ -217,10 +230,15 @@ export function PaqueteForm({
                         <Label>Evento</Label>
                         <Select
                             value={
-                                data.modelable_id ? String(data.modelable_id) : ''
+                                data.modelable_id
+                                    ? String(data.modelable_id)
+                                    : ''
                             }
                             onValueChange={(value) =>
-                                setData('modelable_id', value ? Number(value) : '')
+                                setData(
+                                    'modelable_id',
+                                    value ? Number(value) : '',
+                                )
                             }
                         >
                             <SelectTrigger>
@@ -242,12 +260,14 @@ export function PaqueteForm({
                 )}
 
                 {asociacion === 'nuevo_evento' && (
-                    <div className="rounded-lg border border-border p-4 space-y-4">
+                    <div className="space-y-4 rounded-lg border border-border p-4">
                         <Label className="text-base font-semibold">
                             Datos del evento
                         </Label>
                         <div className="grid gap-2">
-                            <Label htmlFor="evento_nombre">Nombre del evento</Label>
+                            <Label htmlFor="evento_nombre">
+                                Nombre del evento
+                            </Label>
                             <Input
                                 id="evento_nombre"
                                 value={data.evento_data.nombre}
@@ -260,7 +280,9 @@ export function PaqueteForm({
                                 placeholder="Nombre del evento"
                                 required
                             />
-                            <InputError message={errors['evento_data.nombre']} />
+                            <InputError
+                                message={errors['evento_data.nombre']}
+                            />
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="evento_descripcion">
@@ -295,7 +317,9 @@ export function PaqueteForm({
                                     }
                                     required
                                 />
-                                <InputError message={errors['evento_data.fecha']} />
+                                <InputError
+                                    message={errors['evento_data.fecha']}
+                                />
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="evento_inicio">
@@ -344,7 +368,9 @@ export function PaqueteForm({
                                     required
                                 />
                                 <InputError
-                                    message={errors['evento_data.domicilio_calle']}
+                                    message={
+                                        errors['evento_data.domicilio_calle']
+                                    }
                                 />
                             </div>
                             <div className="grid gap-2">
@@ -382,9 +408,7 @@ export function PaqueteForm({
                     <Input
                         id="descripcion"
                         value={data.descripcion}
-                        onChange={(e) =>
-                            setData('descripcion', e.target.value)
-                        }
+                        onChange={(e) => setData('descripcion', e.target.value)}
                         placeholder="Descripción del paquete"
                     />
                     <InputError message={errors.descripcion} />
@@ -420,9 +444,7 @@ export function PaqueteForm({
                         <Input
                             id="destino"
                             value={data.destino}
-                            onChange={(e) =>
-                                setData('destino', e.target.value)
-                            }
+                            onChange={(e) => setData('destino', e.target.value)}
                             placeholder="Destino"
                         />
                         <InputError message={errors.destino} />

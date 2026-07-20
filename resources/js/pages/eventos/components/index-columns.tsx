@@ -12,7 +12,10 @@ const estadoLabels: Record<string, string> = {
     rechazado: 'Rechazado',
 };
 
-const estadoVariants: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+const estadoVariants: Record<
+    string,
+    'default' | 'secondary' | 'destructive' | 'outline'
+> = {
     pendiente: 'outline',
     activo: 'default',
     suspendido: 'secondary',

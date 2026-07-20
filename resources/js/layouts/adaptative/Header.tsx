@@ -33,9 +33,17 @@ export function Header({ title, icon, actions }: HeaderProps) {
             <div className="mx-auto flex h-16 max-w-lg items-center justify-between px-4">
                 <div className="flex items-center gap-3">
                     {resolvedAppearance == 'dark' ? (
-                        <img src="/img/LogoDTSE_dark.png" alt="Logo" className="h-12" />
+                        <img
+                            src="/img/LogoDTSE_dark.png"
+                            alt="Logo"
+                            className="h-12"
+                        />
                     ) : (
-                        <img src="/img/LogoDTSE2.png" alt="Logo" className="h-12" />
+                        <img
+                            src="/img/LogoDTSE2.png"
+                            alt="Logo"
+                            className="h-12"
+                        />
                     )}
 
                     {title && (

@@ -97,7 +97,9 @@ export function EventoForm({
                 <div className="grid gap-2">
                     <Label htmlFor="localidad_id">Nodo</Label>
                     <Select
-                        value={data.localidad_id ? String(data.localidad_id) : ''}
+                        value={
+                            data.localidad_id ? String(data.localidad_id) : ''
+                        }
                         onValueChange={handleLocalidadChange}
                     >
                         <SelectTrigger>
@@ -178,9 +180,7 @@ export function EventoForm({
                     <Input
                         id="descripcion"
                         value={data.descripcion}
-                        onChange={(e) =>
-                            setData('descripcion', e.target.value)
-                        }
+                        onChange={(e) => setData('descripcion', e.target.value)}
                         placeholder="Descripción del evento"
                     />
                     <InputError message={errors.descripcion} />
@@ -193,9 +193,7 @@ export function EventoForm({
                             id="fecha"
                             type="date"
                             value={data.fecha}
-                            onChange={(e) =>
-                                setData('fecha', e.target.value)
-                            }
+                            onChange={(e) => setData('fecha', e.target.value)}
                             required
                         />
                         <InputError message={errors.fecha} />
@@ -206,9 +204,7 @@ export function EventoForm({
                             id="inicio"
                             type="time"
                             value={data.inicio}
-                            onChange={(e) =>
-                                setData('inicio', e.target.value)
-                            }
+                            onChange={(e) => setData('inicio', e.target.value)}
                         />
                         <InputError message={errors.inicio} />
                     </div>

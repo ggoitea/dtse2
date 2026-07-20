@@ -11,7 +11,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 
-
 type Sitio = {
     id: number;
     nombre: string;
@@ -77,11 +76,11 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
         <div className="min-h-screen bg-background">
             {/* Hero */}
             <section
-                className=" relative bg-linear-to-br from-primary/10 via-background to-primary/5 px-4 py-16 text-center  bg-cover bg-center "
+                className="relative bg-linear-to-br from-primary/10 via-background to-primary/5 bg-cover bg-center px-4 py-16 text-center"
                 style={{ backgroundImage: `url(${fondo})` }}
             >
                 <div className="absolute inset-0 bg-black/72"></div>
-                <div className='relative'>
+                <div className="relative">
                     <h1 className="mb-3 text-3xl font-bold text-foreground">
                         {t('hero_title')}
                     </h1>
@@ -91,9 +90,9 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                 </div>
 
                 {/* Search */}
-                <div className="relative mx-auto flex max-w-md gap-2 ">
+                <div className="relative mx-auto flex max-w-md gap-2">
                     <Input
-                        className='bg-white/50! placeholder:text-black/70! text-black!'
+                        className="bg-white/50! text-black! placeholder:text-black/70!"
                         placeholder={t('buscar_placeholder')}
                         value={buscar}
                         onChange={(e) => setBuscar(e.target.value)}
@@ -109,9 +108,7 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
             <section className="border-b px-4 py-4">
                 <div className="scrollbar-hide mx-auto flex max-w-5xl gap-2 overflow-x-auto pb-2">
                     <Button
-                        variant={
-                            categoriaFiltro === '' ? 'default' : 'outline'
-                        }
+                        variant={categoriaFiltro === '' ? 'default' : 'outline'}
                         size="sm"
                         onClick={() => handleCategoria('')}
                     >
@@ -144,10 +141,7 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                 ) : (
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {sitios.map((sitio) => (
-                            <Card
-                                key={sitio.id}
-                                className="overflow-hidden"
-                            >
+                            <Card key={sitio.id} className="overflow-hidden">
                                 <div className="relative h-40 bg-muted">
                                     {sitio.archivo_default ? (
                                         <img
@@ -167,8 +161,7 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                                         >
                                             <Calendar className="mr-1 h-3 w-3" />
                                             {t('proximo')}{' '}
-                                            {sitio.eventos.length}{' '}
-                                            {t('dias')}
+                                            {sitio.eventos.length} {t('dias')}
                                         </Badge>
                                     )}
                                 </div>
@@ -178,10 +171,7 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                                     </h3>
                                     <p className="mb-2 text-sm text-muted-foreground">
                                         {sitio.localidad.nombre},{' '}
-                                        {
-                                            sitio.localidad.departamento
-                                                .nombre
-                                        }
+                                        {sitio.localidad.departamento.nombre}
                                     </p>
                                     <Badge
                                         variant="outline"
@@ -207,9 +197,7 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                 )}
             </section>
         </div>
-    )
-
-
+    );
 }
 
 NovedadesIndex.layout = [AdaptiveLayout];

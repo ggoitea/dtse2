@@ -5,7 +5,10 @@ interface GoogleButtonProps {
     className?: string;
 }
 
-export default function GoogleButton({ href, className = '' }: GoogleButtonProps) {
+export default function GoogleButton({
+    href,
+    className = '',
+}: GoogleButtonProps) {
     return (
         <a href={href} className={`w-full ${className}`}>
             <Button

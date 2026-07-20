@@ -183,7 +183,7 @@ export default function MapaIndex() {
             if (userPosition) {
                 const distance = Math.sqrt(
                     (center.lat - userPosition.lat) ** 2 +
-                    (center.lng - userPosition.lng) ** 2,
+                        (center.lng - userPosition.lng) ** 2,
                 );
                 setShowRecenter(distance > 0.01);
             }
@@ -204,11 +204,11 @@ export default function MapaIndex() {
 
     return (
         <>
-            <div className="relative h-full w-full z-1 aqui1">
+            <div className="aqui1 relative z-1 h-full w-full">
                 <MapContainer
                     center={[defaultPosition.lat, defaultPosition.lng]}
                     zoom={13}
-                    className="h-full w-full z-10"
+                    className="z-10 h-full w-full"
                     zoomControl={false}
                 >
                     <TileLayer
@@ -220,10 +220,7 @@ export default function MapaIndex() {
 
                     {userPosition && (
                         <Marker
-                            position={[
-                                userPosition.lat,
-                                userPosition.lng,
-                            ]}
+                            position={[userPosition.lat, userPosition.lng]}
                             icon={divIcon({
                                 className: 'custom-user-marker',
                                 html: '<div class="user-marker-pulse"></div><div class="user-marker-dot"></div>',
@@ -264,18 +261,22 @@ export default function MapaIndex() {
                                             {t('km')}
                                         </p>
                                     )}
-                                    <Button className='text-foreground w-full' variant={'default'} asChild>
+                                    <Button
+                                        className="w-full text-foreground"
+                                        variant={'default'}
+                                        asChild
+                                    >
                                         <a
                                             href={`https://www.google.com/maps/dir/?api=1&destination=${sitio.latitud},${sitio.longitud}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-
                                         >
                                             <Navigation className="h-3 w-3 text-foreground" />
-                                            <span className='text-foreground'>{t('como_llegar')}</span>
+                                            <span className="text-foreground">
+                                                {t('como_llegar')}
+                                            </span>
                                         </a>
                                     </Button>
-
                                 </div>
                             </Popup>
                         </Marker>
@@ -283,7 +284,7 @@ export default function MapaIndex() {
                 </MapContainer>
 
                 {/* Controls overlay */}
-                <div className="absolute right-4 top-10 z-20 flex flex-col gap-2">
+                <div className="absolute top-10 right-4 z-20 flex flex-col gap-2">
                     <Button
                         size="icon"
                         variant="secondary"
@@ -344,10 +345,7 @@ export default function MapaIndex() {
                                             {t('todas')}
                                         </SelectItem>
                                         {categorias.map((cat) => (
-                                            <SelectItem
-                                                key={cat}
-                                                value={cat}
-                                            >
+                                            <SelectItem key={cat} value={cat}>
                                                 {cat}
                                             </SelectItem>
                                         ))}

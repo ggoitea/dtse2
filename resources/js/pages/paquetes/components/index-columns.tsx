@@ -21,7 +21,10 @@ const estadoLabels: Record<string, string> = {
     cancelado: 'Cancelado',
 };
 
-const estadoVariants: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+const estadoVariants: Record<
+    string,
+    'default' | 'secondary' | 'destructive' | 'outline'
+> = {
     activo: 'default',
     agotado: 'secondary',
     suspendido: 'outline',
@@ -46,7 +49,8 @@ export const columns: ColumnDef<PaqueteTuristico>[] = [
         header: 'Categoría',
         cell: ({ row }) => (
             <Badge variant="outline">
-                {categoriaLabels[row.original.categoria] ?? row.original.categoria}
+                {categoriaLabels[row.original.categoria] ??
+                    row.original.categoria}
             </Badge>
         ),
     },

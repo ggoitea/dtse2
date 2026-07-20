@@ -77,7 +77,6 @@ export function AdaptiveLayout({
     const isMobile = useIsMobile();
     const { accesoRapido } = useMenu();
 
-
     if (!isMobile) {
         return (
             <>
