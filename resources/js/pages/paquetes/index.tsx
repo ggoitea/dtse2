@@ -25,11 +25,11 @@ interface Props {
 }
 
 export default function PaquetesIndex({ paquetes, filtros }: Props) {
+
     const tableRef = useRef<DataTableRef>(null);
     const [processing, setProcessing] = useState(false);
     const { can } = usePermissions();
     const { t } = useTranslation(['paquetes', 'common']);
-
     const handleSearch = (value: string) => {
         tableRef.current?.resetPagination();
         router.reload({
@@ -68,7 +68,7 @@ export default function PaquetesIndex({ paquetes, filtros }: Props) {
                 },
             ],
         });
-    }, [t, can]);
+    }, []);
 
     return (
         <AdaptiveTable
