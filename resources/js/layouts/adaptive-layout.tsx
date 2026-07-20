@@ -76,7 +76,7 @@ export function AdaptiveLayout({
 }: AdaptiveLayoutProps) {
     const isMobile = useIsMobile();
     const { accesoRapido } = useMenu();
-    console.log(accesoRapido)
+
 
     if (!isMobile) {
         return (

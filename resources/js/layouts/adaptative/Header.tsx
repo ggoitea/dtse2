@@ -20,7 +20,6 @@ interface HeaderProps {
 export function Header({ title, icon, actions }: HeaderProps) {
     const { i18n } = useTranslation();
     const { resolvedAppearance } = useAppearance();
-    console.log('resolvedAppearance', resolvedAppearance);
 
     const handleLanguageChange = (locale: 'es' | 'en' | 'qu' | 'pt') => {
         i18n.changeLanguage(locale);
