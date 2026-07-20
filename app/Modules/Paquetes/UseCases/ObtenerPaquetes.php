@@ -4,7 +4,7 @@ namespace App\Modules\Paquetes\UseCases;
 
 use App\Modules\Paquetes\Queries\PaqueteQueries;
 use App\Modules\Shared\Domain\PaginadoValueObject;
-use \Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ObtenerPaquetes
 {

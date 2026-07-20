@@ -59,5 +59,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/paquetes/{paquete}', [PaqueteController::class, 'destroy'])->name('paquetes.destroy');
 });
 
-require __DIR__ . '/settings.php';
-require __DIR__ . '/platform.php';
+require __DIR__.'/settings.php';
+require __DIR__.'/platform.php';

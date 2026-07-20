@@ -10,7 +10,6 @@ use App\Models\Evento;
 use App\Models\Localidad;
 use App\Models\PaqueteTuristico;
 use App\Models\Sitio;
-use App\Modules\Paquetes\Queries\PaqueteQueries;
 use App\Modules\Paquetes\UseCases\ActualizarPaquete;
 use App\Modules\Paquetes\UseCases\CrearPaquete;
 use App\Modules\Paquetes\UseCases\EliminarPaquete;
@@ -25,7 +24,7 @@ class PaqueteController extends Controller
     public function index(Request $request): Response
     {
         return Inertia::render('paquetes/index', [
-            'paquetes' => fn() => PaqueteResource::collection(ObtenerPaquetes::make(
+            'paquetes' => fn () => PaqueteResource::collection(ObtenerPaquetes::make(
                 page: $request->input('page', 1),
                 perPage: $request->input('perPage', 25),
                 filtros: $request->only(['buscar']),
@@ -39,9 +38,9 @@ class PaqueteController extends Controller
         $this->authorize(Permission::PaquetesCreate->value);
 
         return Inertia::render('paquetes/create', [
-            'localidades' => fn() => Localidad::orderBy('nombre')->get(['id', 'nombre']),
-            'sitios' => fn() => Sitio::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
-            'eventos' => fn() => Evento::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
+            'localidades' => fn () => Localidad::orderBy('nombre')->get(['id', 'nombre']),
+            'sitios' => fn () => Sitio::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
+            'eventos' => fn () => Evento::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
             'categorias' => PaqueteCategoriaEnum::options(),
         ]);
     }
@@ -61,9 +60,9 @@ class PaqueteController extends Controller
 
         return Inertia::render('paquetes/edit', [
             'paquete' => $paquete->load('modelable'),
-            'localidades' => fn() => Localidad::orderBy('nombre')->get(['id', 'nombre']),
-            'sitios' => fn() => Sitio::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
-            'eventos' => fn() => Evento::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
+            'localidades' => fn () => Localidad::orderBy('nombre')->get(['id', 'nombre']),
+            'sitios' => fn () => Sitio::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
+            'eventos' => fn () => Evento::orderBy('nombre')->get(['id', 'nombre', 'localidad_id']),
             'categorias' => PaqueteCategoriaEnum::options(),
         ]);
     }
