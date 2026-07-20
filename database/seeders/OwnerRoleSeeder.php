@@ -14,8 +14,18 @@ class OwnerRoleSeeder extends Seeder
 
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $ownerRole = Role::query()->firstOrCreate([
+        Role::query()->firstOrCreate([
             'name' => 'owner',
+            'guard_name' => 'web',
+        ]);
+
+        Role::query()->firstOrCreate([
+            'name' => 'colaborador',
+            'guard_name' => 'web',
+        ]);
+
+        Role::query()->firstOrCreate([
+            'name' => 'visitante',
             'guard_name' => 'web',
         ]);
     }
