@@ -1,18 +1,18 @@
-import { router, setLayoutProps } from '@inertiajs/react';
-import { Package } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { router, setLayoutProps } from '@inertiajs/react';
+import { Package } from 'lucide-react';
 
 import { AdaptiveTable } from '@/components/blocks/adaptive-table';
 import type { CollectionData, DataTableRef } from '@/components/blocks/data-table';
 import InputSimpleSearch from '@/components/blocks/input-simple-search';
 import { usePermissions } from '@/hooks/use-permissions';
+import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 import { create, index } from '@/routes/paquetes';
-import type { PaqueteTuristico } from './types/paquete';
 
 import { columns } from './components/index-columns';
 import PaqueteMobileCard from './components/index-mobile-card';
-import { AdaptiveLayout } from '@/layouts/adaptive-layout';
+import type { PaqueteTuristico } from './types/paquete';
 
 interface Props {
     paquetes: CollectionData<PaqueteTuristico>;

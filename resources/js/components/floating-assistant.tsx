@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link, useHttp, usePage } from '@inertiajs/react';
 import { Compass, Send, Sparkles, User, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 
-import type { ChatMessage } from '@/types/chat';
 import perfil from '@/assets/perfil_uritu.jpg';
-import { Link, useHttp, usePage } from '@inertiajs/react';
-import { asistente } from '@/routes/api';
-import { recarga } from '@/routes/credito';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -17,6 +14,9 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { asistente } from '@/routes/api';
+import { recarga } from '@/routes/credito';
+import type { ChatMessage } from '@/types/chat';
 
 interface FloatingAssistantProps {
     onSuggestCity?: (city: string) => void;

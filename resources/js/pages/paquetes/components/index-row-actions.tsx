@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { Row } from '@tanstack/react-table';
-import { Pencil, MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal,Pencil } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { usePermissions } from '@/hooks/use-permissions';
 import { edit } from '@/routes/paquetes';
+
 import type { PaqueteTuristico } from '../types/paquete';
 
 interface Props {

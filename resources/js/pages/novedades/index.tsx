@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { Head, setLayoutProps } from '@inertiajs/react';
 import { Calendar, MapPin, Package, Search } from 'lucide-react';
 
+// import { landing } from '@/routes';
+import fondo from '@/assets/novedades_hero.jpg';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { AdaptiveLayout } from '@/layouts/adaptive-layout';
-// import { landing } from '@/routes';
-import fondo from '@/assets/novedades_hero.jpg';
 
 
 type Sitio = {

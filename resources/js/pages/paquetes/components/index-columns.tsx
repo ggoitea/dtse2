@@ -1,8 +1,8 @@
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { Badge } from '@/components/ui/badge';
-import type { PaqueteTuristico } from '../types/paquete';
 
+import type { PaqueteTuristico } from '../types/paquete';
 import { PaqueteRowActions } from './index-row-actions';
 
 const categoriaLabels: Record<string, string> = {

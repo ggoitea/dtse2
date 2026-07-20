@@ -1,7 +1,7 @@
-import { router, usePage } from '@inertiajs/react';
-import { Calendar } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { router, usePage } from '@inertiajs/react';
+import { Calendar } from 'lucide-react';
 
 import { AdaptiveTable } from '@/components/blocks/adaptive-table';
 import type { CollectionData, DataTableRef } from '@/components/blocks/data-table';
@@ -9,10 +9,10 @@ import InputSimpleSearch from '@/components/blocks/input-simple-search';
 import { usePermissions } from '@/hooks/use-permissions';
 import { AdaptiveLayout } from '@/layouts/adaptative-layout';
 import { create, index } from '@/routes/eventos';
-import type { Evento } from './types/evento';
 
 import { columns } from './components/index-columns';
 import EventoMobileCard from './components/index-mobile-card';
+import type { Evento } from './types/evento';
 
 interface Props {
     eventos: CollectionData<Evento>;

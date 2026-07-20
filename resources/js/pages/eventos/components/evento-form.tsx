@@ -72,6 +72,7 @@ export function EventoForm({
     useEffect(() => {
         if (data.sitio_id) {
             const sitio = sitios.find((s) => s.id === Number(data.sitio_id));
+
             if (sitio) {
                 setData('domicilio_calle', sitio.domicilio_calle);
                 setData('domicilio_numero', sitio.domicilio_numero ?? '');

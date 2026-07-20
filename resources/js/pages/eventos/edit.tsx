@@ -1,7 +1,7 @@
-import { router, useForm } from '@inertiajs/react';
-import { Calendar } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { router, useForm } from '@inertiajs/react';
+import { Calendar } from 'lucide-react';
 
 import HeadingSmall from '@/components/heading-small';
 import { AdaptiveLayout } from '@/layouts/adaptative-layout';

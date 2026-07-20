@@ -1,8 +1,8 @@
 import type { ColumnDef } from '@tanstack/react-table';
 
 import { Badge } from '@/components/ui/badge';
-import type { Evento } from '../types/evento';
 
+import type { Evento } from '../types/evento';
 import { EventoRowActions } from './index-row-actions';
 
 const estadoLabels: Record<string, string> = {

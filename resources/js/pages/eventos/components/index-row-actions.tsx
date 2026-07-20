@@ -1,6 +1,6 @@
-import { router, Link } from '@inertiajs/react';
-import { Calendar, CalendarDays, MapPin, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 import { useState } from 'react';
+import { Link,router } from '@inertiajs/react';
+import { Calendar, CalendarDays, MapPin, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { usePermissions } from '@/hooks/use-permissions';
 import { destroy, edit } from '@/routes/eventos';
+
 import type { Evento } from '../types/evento';
 
 interface Props {
