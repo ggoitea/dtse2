@@ -30,8 +30,8 @@ export default function Landing({ stats }: Props) {
         const button = heroButtonRef.current;
 
         if (!button) {
-return;
-}
+            return;
+        }
 
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -81,7 +81,9 @@ return;
                         </p>
                         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                             <Button size="lg" asChild>
-                                <a ref={heroButtonRef} href={novedades().url}>{t('hero_cta')}</a>
+                                <a ref={heroButtonRef} href={novedades().url}>
+                                    {t('hero_cta')}
+                                </a>
                             </Button>
                             {isPwaInstallable && (
                                 <Button size="lg" variant="outline">
@@ -208,7 +210,7 @@ return;
                 </section>
 
                 {/* Contacto Section */}
-                <section id='contacto_section' className="px-4 py-20">
+                <section id="contacto_section" className="px-4 py-20">
                     <div className="mx-auto max-w-lg">
                         <h2 className="mb-2 text-center text-3xl font-bold text-foreground">
                             {t('contacto_title')}
@@ -309,8 +311,11 @@ return;
 
             <a
                 href={novedades().url}
-                className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-primary px-6 py-5 text-sm font-medium text-primary-foreground shadow-lg transition-opacity duration-300 hover:bg-primary/90 ${showFloatingButton ? 'opacity-100' : 'pointer-events-none opacity-0'
-                    }`}
+                className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-primary px-6 py-5 text-sm font-medium text-primary-foreground shadow-lg transition-opacity duration-300 hover:bg-primary/90 ${
+                    showFloatingButton
+                        ? 'opacity-100'
+                        : 'pointer-events-none opacity-0'
+                }`}
             >
                 {t('hero_cta')}
             </a>

@@ -18,7 +18,6 @@ import { asistente } from '@/routes/api';
 import { recarga } from '@/routes/credito';
 import type { ChatMessage } from '@/types/chat';
 
-
 export function FloatingAssistant() {
     // Contador persistente para generar IDs sin llamar a funciones impuras
     // UseRef mantiene el contador entre renders sin violar reglas de render puro.
@@ -221,17 +220,19 @@ export function FloatingAssistant() {
                                 return (
                                     <div
                                         key={msg.id}
-                                        className={`flex max-w-[85%] items-start gap-2 ${isAssistant
-                                            ? 'self-start'
-                                            : 'flex-row-reverse self-end'
-                                            }`}
+                                        className={`flex max-w-[85%] items-start gap-2 ${
+                                            isAssistant
+                                                ? 'self-start'
+                                                : 'flex-row-reverse self-end'
+                                        }`}
                                     >
                                         {/* Avatar circle */}
                                         <div
-                                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isAssistant
-                                                ? 'bg-[#00327d]/10 text-[#00327d]'
-                                                : 'bg-[#fcd400]/20 text-[#705d00]'
-                                                }`}
+                                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                                                isAssistant
+                                                    ? 'bg-[#00327d]/10 text-[#00327d]'
+                                                    : 'bg-[#fcd400]/20 text-[#705d00]'
+                                            }`}
                                         >
                                             {isAssistant ? (
                                                 <Compass className="h-4 w-4" />
@@ -243,10 +244,11 @@ export function FloatingAssistant() {
                                         {/* Bubble box */}
                                         <div className="flex flex-col">
                                             <div
-                                                className={`rounded-2xl p-3 text-sm leading-relaxed shadow-sm ${isAssistant
-                                                    ? 'rounded-tl-none border border-white/40 bg-white/60 text-gray-800 backdrop-blur-sm'
-                                                    : 'rounded-tr-none bg-[#00327d]/90 text-white backdrop-blur-sm'
-                                                    }`}
+                                                className={`rounded-2xl p-3 text-sm leading-relaxed shadow-sm ${
+                                                    isAssistant
+                                                        ? 'rounded-tl-none border border-white/40 bg-white/60 text-gray-800 backdrop-blur-sm'
+                                                        : 'rounded-tr-none bg-[#00327d]/90 text-white backdrop-blur-sm'
+                                                }`}
                                             >
                                                 <p className="whitespace-pre-line">
                                                     {msg.text}
@@ -328,10 +330,11 @@ export function FloatingAssistant() {
                             <button
                                 type="submit"
                                 disabled={!inputValue.trim() || processing}
-                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${inputValue.trim() && !processing
-                                    ? 'bg-[#00327d] text-white shadow-md active:scale-95'
-                                    : 'bg-gray-100 text-gray-300'
-                                    }`}
+                                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all ${
+                                    inputValue.trim() && !processing
+                                        ? 'bg-[#00327d] text-white shadow-md active:scale-95'
+                                        : 'bg-gray-100 text-gray-300'
+                                }`}
                                 id="assistant-send-btn"
                             >
                                 <Send className="h-4.5 w-4.5" />

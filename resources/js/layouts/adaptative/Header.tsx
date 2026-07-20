@@ -25,7 +25,7 @@ export function Header({ title, actions }: HeaderProps) {
     const { resolvedAppearance } = useAppearance();
     const { auth } = usePage().props;
     const cleanup = useMobileNavigation();
-    console.log(auth.user)
+    console.log(auth.user);
     const handleLogout = () => {
         cleanup();
         router.flushAll();

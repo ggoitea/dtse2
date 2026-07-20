@@ -93,10 +93,10 @@ export function PaqueteForm({
         data.modelable_type === 'App\\Models\\Sitio'
             ? 'sitio'
             : data.modelable_type === 'App\\Models\\Evento'
-                ? 'evento'
-                : data.evento_data.nombre
-                    ? 'nuevo_evento'
-                    : 'sitio',
+              ? 'evento'
+              : data.evento_data.nombre
+                ? 'nuevo_evento'
+                : 'sitio',
     );
 
     const sitiosFiltrados = sitios.filter(

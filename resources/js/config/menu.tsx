@@ -1,9 +1,4 @@
-import {
-    Compass,
-    Map,
-    MessageCircle,
-    Package,
-} from 'lucide-react';
+import { Compass, Map, MessageCircle, Package } from 'lucide-react';
 
 import type { NavItemBottomMobile } from '@/layouts/adaptative/BottomNav';
 import { novedades } from '@/routes';
