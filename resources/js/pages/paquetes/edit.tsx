@@ -4,7 +4,7 @@ import { router, useForm } from '@inertiajs/react';
 import { Package } from 'lucide-react';
 
 import HeadingSmall from '@/components/heading-small';
-import { AdaptiveLayout } from '@/layouts/adaptative-layout';
+import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 import { edit as editRoute, index } from '@/routes/paquetes';
 
 import { PaqueteForm } from './components/paquete-form';

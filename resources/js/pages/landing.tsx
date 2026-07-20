@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { Globe, MapPin, MessageCircle, Send, Trees, Zap } from 'lucide-react';
@@ -23,6 +23,27 @@ export default function Landing({ stats }: Props) {
     const { t } = useTranslation(['landing', 'common']);
     const { flash } = usePage().props as { flash?: { success?: string } };
     const [isPwaInstallable] = useState(false);
+    const [showFloatingButton, setShowFloatingButton] = useState(false);
+    const heroButtonRef = useRef<HTMLAnchorElement>(null);
+
+    useEffect(() => {
+        const button = heroButtonRef.current;
+
+        if (!button) {
+return;
+}
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setShowFloatingButton(!entry.isIntersecting);
+            },
+            { threshold: 0 },
+        );
+
+        observer.observe(button);
+
+        return () => observer.disconnect();
+    }, []);
 
     const { data, setData, post, processing, errors, reset } = useForm({
         nombre: '',
@@ -60,7 +81,7 @@ export default function Landing({ stats }: Props) {
                         </p>
                         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                             <Button size="lg" asChild>
-                                <a href={novedades().url}>{t('hero_cta')}</a>
+                                <a ref={heroButtonRef} href={novedades().url}>{t('hero_cta')}</a>
                             </Button>
                             {isPwaInstallable && (
                                 <Button size="lg" variant="outline">
@@ -187,7 +208,7 @@ export default function Landing({ stats }: Props) {
                 </section>
 
                 {/* Contacto Section */}
-                <section className="px-4 py-20">
+                <section id='contacto_section' className="px-4 py-20">
                     <div className="mx-auto max-w-lg">
                         <h2 className="mb-2 text-center text-3xl font-bold text-foreground">
                             {t('contacto_title')}
@@ -285,6 +306,14 @@ export default function Landing({ stats }: Props) {
                     {t('footer_text')}
                 </footer>
             </div>
+
+            <a
+                href={novedades().url}
+                className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-primary px-6 py-5 text-sm font-medium text-primary-foreground shadow-lg transition-opacity duration-300 hover:bg-primary/90 ${showFloatingButton ? 'opacity-100' : 'pointer-events-none opacity-0'
+                    }`}
+            >
+                {t('hero_cta')}
+            </a>
         </>
     );
 }

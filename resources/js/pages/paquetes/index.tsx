@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { router, setLayoutProps } from '@inertiajs/react';
 import { Package } from 'lucide-react';
@@ -68,7 +68,7 @@ export default function PaquetesIndex({ paquetes, filtros }: Props) {
                 },
             ],
         });
-    }, []);
+    }, [t, can]);
 
     return (
         <AdaptiveTable

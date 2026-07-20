@@ -1,6 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe } from 'lucide-react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { Globe, LogIn, LogOut } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -10,6 +11,8 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAppearance } from '@/hooks/use-appearance';
+import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
+import { login, logout } from '@/routes';
 
 interface HeaderProps {
     title?: string;
@@ -17,9 +20,16 @@ interface HeaderProps {
     actions?: ReactNode;
 }
 
-export function Header({ title, icon, actions }: HeaderProps) {
+export function Header({ title, actions }: HeaderProps) {
     const { i18n } = useTranslation();
     const { resolvedAppearance } = useAppearance();
+    const { auth } = usePage().props;
+    const cleanup = useMobileNavigation();
+    console.log(auth.user)
+    const handleLogout = () => {
+        cleanup();
+        router.flushAll();
+    };
 
     const handleLanguageChange = (locale: 'es' | 'en' | 'qu' | 'pt') => {
         i18n.changeLanguage(locale);
@@ -97,6 +107,26 @@ export function Header({ title, icon, actions }: HeaderProps) {
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
+
+                    {auth.user ? (
+                        <Link
+                            href={logout()}
+                            as="button"
+                            onClick={handleLogout}
+                            className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-card-foreground/70 transition-colors hover:bg-accent hover:text-accent-foreground"
+                        >
+                            <LogOut className="h-4 w-4" />
+                            <span className="hidden sm:inline">Salir</span>
+                        </Link>
+                    ) : (
+                        <Link
+                            href={login()}
+                            className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-card-foreground/70 transition-colors hover:bg-accent hover:text-accent-foreground"
+                        >
+                            <LogIn className="h-4 w-4" />
+                            <span className="hidden sm:inline">Ingresar</span>
+                        </Link>
+                    )}
                 </div>
             </div>
         </header>

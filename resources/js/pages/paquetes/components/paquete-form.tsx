@@ -86,7 +86,6 @@ export function PaqueteForm({
     sitios,
     eventos,
     categorias,
-    isEdit = false,
 }: Props) {
     const [asociacion, setAsociacion] = useState<
         'sitio' | 'evento' | 'nuevo_evento'
@@ -94,10 +93,10 @@ export function PaqueteForm({
         data.modelable_type === 'App\\Models\\Sitio'
             ? 'sitio'
             : data.modelable_type === 'App\\Models\\Evento'
-              ? 'evento'
-              : data.evento_data.nombre
-                ? 'nuevo_evento'
-                : 'sitio',
+                ? 'evento'
+                : data.evento_data.nombre
+                    ? 'nuevo_evento'
+                    : 'sitio',
     );
 
     const sitiosFiltrados = sitios.filter(
@@ -117,7 +116,7 @@ export function PaqueteForm({
             setData('modelable_type', '');
             setData('modelable_id', '');
         }
-    }, [asociacion]);
+    }, [asociacion, setData]);
 
     const handleLocalidadChange = (value: string) => {
         setData('evento_data', {
