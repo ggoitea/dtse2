@@ -53,6 +53,7 @@
         "@tailwindcss/vite": "^4.1.11",
         "@tanstack/react-pacer": "^0.21.1",
         "@tanstack/react-table": "^8.21.3",
+        "@tanstack/react-virtual": "^3.14.7",
         "@types/react": "^19.2.0",
         "@types/react-dom": "^19.2.0",
         "@vitejs/plugin-react": "^5.2.0",

@@ -85,7 +85,7 @@ export default function NovedadesIndex({ sitios, categorias }: Props) {
                         {t('hero_title')}
                     </h1>
                     <p className="mb-8 text-muted-foreground">
-                        {t('hero_subtitle')}
+                        {t('hero_subtitle')}dsd
                     </p>
                 </div>
 

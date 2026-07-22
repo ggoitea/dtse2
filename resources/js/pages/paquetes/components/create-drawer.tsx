@@ -58,6 +58,7 @@ export default function CreatePaqueteDrawer({
     categorias,
 }: Props) {
     const { t } = useTranslation(['paquetes', 'common']);
+    const containerRef = useRef<HTMLDivElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
     const { data, setData, errors, setError, clearErrors } = useForm({
         modelable_type: '',
@@ -105,8 +106,9 @@ export default function CreatePaqueteDrawer({
             onOpenChange={onOpenChange}
             direction="right"
             dismissible={false}
+
         >
-            <DrawerContent>
+            <DrawerContent ref={containerRef} className='w-full! lg:max-w-sm!'>
                 <DrawerHeader>
                     <DrawerTitle className="flex items-center gap-2">
                         <Package className="size-5" />
@@ -130,6 +132,7 @@ export default function CreatePaqueteDrawer({
                         sitios={sitios}
                         eventos={eventos}
                         categorias={categorias}
+                        containerRef={containerRef}
                         hideSubmitButton
                     />
                 </div>
