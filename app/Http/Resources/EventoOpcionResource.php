@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Models\Evento;
-use App\Models\Sitio;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,6 +17,7 @@ class EventoOpcionResource extends JsonResource
     {
         /** @var Evento $evento */
         $evento = $this->resource;
+
         return [
             'value' => $evento->id,
             'label' => $evento->nombre,

@@ -17,6 +17,7 @@ class SitioOpcionResource extends JsonResource
     {
         /** @var Sitio $sitio */
         $sitio = $this->resource;
+
         return [
             'value' => $sitio->id,
             'label' => $sitio->nombre,

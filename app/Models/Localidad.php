@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -15,11 +17,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $nombre
  * @property float|null $latitud
  * @property float|null $longitud
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Departamento|null $departamento
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Evento> $eventos
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Sitio> $sitios
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Departamento|null $departamento
+ * @property-read Collection<int, Evento> $eventos
+ * @property-read Collection<int, Sitio> $sitios
  */
 class Localidad extends Model
 {

@@ -34,9 +34,9 @@ enum PaqueteCategoriaEnum: string
     public static function toOptions(): array
     {
         return array_map(
-            fn(self $case) => [
+            fn (self $case) => [
                 'value' => $case->value,
-                'label' => $case->label()
+                'label' => $case->label(),
             ],
             self::cases()
         );

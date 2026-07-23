@@ -20,7 +20,7 @@ class LocalidadeOpcionResource extends JsonResource
 
         return [
             'value' => $localidad->id,
-            'label' => $localidad->departamento->nombre . ', ' . $localidad->nombre,
+            'label' => $localidad->departamento->nombre.', '.$localidad->nombre,
         ];
     }
 }
