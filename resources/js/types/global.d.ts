@@ -1,4 +1,5 @@
 import type { Auth } from '@/types/auth';
+import { number } from 'motion/react';
 
 declare module '@inertiajs/core' {
     export interface InertiaConfig {
@@ -9,4 +10,9 @@ declare module '@inertiajs/core' {
             [key: string]: unknown;
         };
     }
+}
+
+export interface Option {
+    value: string | number;
+    label: string;
 }

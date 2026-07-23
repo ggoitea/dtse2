@@ -10,6 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property int $localidad_id
+ * @property int|null $sitio_id
+ * @property string $nombre
+ * @property string|null $descripcion
+ * @property \Illuminate\Support\Carbon $fecha
+ * @property \Illuminate\Support\Carbon|null $inicio
+ * @property \Illuminate\Support\Carbon|null $fin
+ * @property string|null $domicilio_calle
+ * @property string|null $domicilio_numero
+ * @property EventoEstadoEnum $estado
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Evento extends Model
 {
     use HasArchivos, HasFactory;

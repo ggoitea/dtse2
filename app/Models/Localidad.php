@@ -7,6 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property int $asentamiento_id
+ * @property int $departamento_id
+ * @property bool $es_paraje
+ * @property string $nombre
+ * @property float|null $latitud
+ * @property float|null $longitud
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Departamento|null $departamento
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Evento> $eventos
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Sitio> $sitios
+ */
 class Localidad extends Model
 {
     use HasFactory;

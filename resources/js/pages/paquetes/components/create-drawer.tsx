@@ -16,7 +16,8 @@ import {
 } from '@/components/ui/drawer';
 import { create as createRoute } from '@/routes/paquetes';
 
-import { PaqueteForm } from './paquete-form';
+import { EventoOpcion, PaqueteForm, PaqueteFormData, SitioOpcion } from './paquete-form';
+import { Option } from '@/types/global';
 
 interface Localidad {
     id: number;
@@ -43,9 +44,9 @@ interface CategoriaOption {
 interface Props {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    localidades: Localidad[];
-    sitios: Sitio[];
-    eventos: Evento[];
+    localidades: Option[];
+    sitios: SitioOpcion[];
+    eventos: EventoOpcion[];
     categorias: CategoriaOption[];
 }
 
@@ -60,41 +61,27 @@ export default function CreatePaqueteDrawer({
     const { t } = useTranslation(['paquetes', 'common']);
     const containerRef = useRef<HTMLDivElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
-    const { data, setData, errors, setError, clearErrors } = useForm({
-        modelable_type: '',
-        modelable_id: '' as number | '',
+    const { post, data, setData, errors, setError, clearErrors, processing } = useForm<PaqueteFormData>({
+        localidad_id: null,
+        asignar_a: 'sitio',
+        sitio_id: null,
+        evento_id: null,
+        evento_data: null,
         nombre: '',
         descripcion: '',
         categoria: '',
-        destino: '',
-        duracion: '',
-        evento_data: {
-            localidad_id: '' as number | '',
-            sitio_id: '' as number | '',
-            nombre: '',
-            descripcion: '',
-            fecha: '',
-            inicio: '',
-            fin: '',
-            domicilio_calle: '',
-            domicilio_numero: '',
-        },
     });
-    const [processing, setProcessing] = useState(false);
 
     const handleSubmit = (e?: React.FormEvent) => {
         if (e) {
             e.preventDefault();
         }
         clearErrors();
-        setProcessing(true);
-        router.post(createRoute().url, data, {
+        post(createRoute().url, {
             onError: (errors) => {
                 setError(errors as Record<string, string>);
-                setProcessing(false);
             },
             onFinish: () => {
-                setProcessing(false);
                 onOpenChange(false);
             },
         });
@@ -121,19 +108,19 @@ export default function CreatePaqueteDrawer({
 
                 <div className="flex-1 overflow-y-auto px-4">
                     <PaqueteForm
+                        localidades={localidades}
+                        sitios={sitios}
+                        eventos={eventos}
+                        categorias={categorias}
+                        containerRef={containerRef}
                         ref={formRef}
+
                         data={data}
                         setData={setData}
                         errors={errors}
                         processing={processing}
                         onSubmit={handleSubmit}
                         submitLabel={t('guardar')}
-                        localidades={localidades}
-                        sitios={sitios}
-                        eventos={eventos}
-                        categorias={categorias}
-                        containerRef={containerRef}
-                        hideSubmitButton
                     />
                 </div>
 

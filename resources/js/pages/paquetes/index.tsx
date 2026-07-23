@@ -17,11 +17,10 @@ import CreatePaqueteDrawer from './components/create-drawer';
 import { columns } from './components/index-columns';
 import PaqueteMobileCard from './components/index-mobile-card';
 import type { PaqueteTuristico } from './types/paquete';
+import { Option } from '@/types/global';
+import { EventoOpcion, SitioOpcion } from './components/paquete-form';
 
-interface Localidad {
-    id: number;
-    nombre: string;
-}
+
 
 interface Sitio {
     id: number;
@@ -42,22 +41,26 @@ interface CategoriaOption {
 
 interface Props {
     paquetes: CollectionData<PaqueteTuristico>;
+
+    localidadOpciones: Option[];
+    sitioOpciones: SitioOpcion[];
+    eventos: EventoOpcion[];
+    categorias: CategoriaOption[];
+
     filtros: {
         buscar: string | null;
     };
-    localidades: Localidad[];
-    sitios: Sitio[];
-    eventos: Evento[];
-    categorias: CategoriaOption[];
 }
 
 export default function PaquetesIndex({
     paquetes,
-    filtros,
-    localidades,
-    sitios,
+
+    localidadOpciones,
+    sitioOpciones,
     eventos,
     categorias,
+
+    filtros,
 }: Props) {
     const tableRef = useRef<DataTableRef>(null);
     const [processing, setProcessing] = useState(false);
@@ -123,8 +126,8 @@ export default function PaquetesIndex({
             <CreatePaqueteDrawer
                 open={showCreateDrawer}
                 onOpenChange={setShowCreateDrawer}
-                localidades={localidades}
-                sitios={sitios}
+                localidades={localidadOpciones}
+                sitios={sitioOpciones}
                 eventos={eventos}
                 categorias={categorias}
             />
