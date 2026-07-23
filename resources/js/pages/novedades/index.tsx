@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Head, setLayoutProps } from '@inertiajs/react';
+import { setLayoutProps } from '@inertiajs/react';
 import { Calendar, MapPin, Package, Search } from 'lucide-react';
 
 // import { landing } from '@/routes';

@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { router, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { Package } from 'lucide-react';
 
-import { Spinner } from '@/components/ui/spinner';
 import { Button } from '@/components/ui/button';
 import {
     Drawer,
@@ -14,27 +13,16 @@ import {
     DrawerHeader,
     DrawerTitle,
 } from '@/components/ui/drawer';
+import { Spinner } from '@/components/ui/spinner';
 import { create as createRoute } from '@/routes/paquetes';
+import type { Option } from '@/types/global';
 
-import { EventoOpcion, PaqueteForm, PaqueteFormData, SitioOpcion } from './paquete-form';
-import { Option } from '@/types/global';
-
-interface Localidad {
-    id: number;
-    nombre: string;
-}
-
-interface Sitio {
-    id: number;
-    nombre: string;
-    localidad_id: number;
-}
-
-interface Evento {
-    id: number;
-    nombre: string;
-    localidad_id: number;
-}
+import type {
+    EventoOpcion,
+    PaqueteFormData,
+    SitioOpcion,
+} from './paquete-form';
+import { PaqueteForm } from './paquete-form';
 
 interface CategoriaOption {
     value: string;
@@ -61,21 +49,23 @@ export default function CreatePaqueteDrawer({
     const { t } = useTranslation(['paquetes', 'common']);
     const containerRef = useRef<HTMLDivElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
-    const { post, data, setData, errors, setError, clearErrors, processing } = useForm<PaqueteFormData>({
-        localidad_id: null,
-        asignar_a: 'sitio',
-        sitio_id: null,
-        evento_id: null,
-        evento_data: null,
-        nombre: '',
-        descripcion: '',
-        categoria: '',
-    });
+    const { post, data, setData, errors, setError, clearErrors, processing } =
+        useForm<PaqueteFormData>({
+            localidad_id: null,
+            asignar_a: 'sitio',
+            sitio_id: null,
+            evento_id: null,
+            evento_data: null,
+            nombre: '',
+            descripcion: '',
+            categoria: '',
+        });
 
     const handleSubmit = (e?: React.FormEvent) => {
         if (e) {
             e.preventDefault();
         }
+
         clearErrors();
         post(createRoute().url, {
             onError: (errors) => {
@@ -93,9 +83,8 @@ export default function CreatePaqueteDrawer({
             onOpenChange={onOpenChange}
             direction="right"
             dismissible={false}
-
         >
-            <DrawerContent ref={containerRef} className='w-full! lg:max-w-sm!'>
+            <DrawerContent ref={containerRef} className="w-full! lg:max-w-sm!">
                 <DrawerHeader>
                     <DrawerTitle className="flex items-center gap-2">
                         <Package className="size-5" />

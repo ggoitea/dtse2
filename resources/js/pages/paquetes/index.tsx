@@ -12,27 +12,13 @@ import InputSimpleSearch from '@/components/blocks/input-simple-search';
 import { usePermissions } from '@/hooks/use-permissions';
 import { AdaptiveLayout } from '@/layouts/adaptive-layout';
 import { index } from '@/routes/paquetes';
+import type { Option } from '@/types/global';
 
 import CreatePaqueteDrawer from './components/create-drawer';
 import { columns } from './components/index-columns';
 import PaqueteMobileCard from './components/index-mobile-card';
+import type { EventoOpcion, SitioOpcion } from './components/paquete-form';
 import type { PaqueteTuristico } from './types/paquete';
-import { Option } from '@/types/global';
-import { EventoOpcion, SitioOpcion } from './components/paquete-form';
-
-
-
-interface Sitio {
-    id: number;
-    nombre: string;
-    localidad_id: number;
-}
-
-interface Evento {
-    id: number;
-    nombre: string;
-    localidad_id: number;
-}
 
 interface CategoriaOption {
     value: string;
@@ -102,7 +88,7 @@ export default function PaquetesIndex({
                 },
             ],
         });
-    }, []);
+    }, [hasAnyRole, t]);
 
     return (
         <>

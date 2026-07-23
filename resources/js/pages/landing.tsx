@@ -1,14 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Head, useForm, usePage } from '@inertiajs/react';
-import { Globe, MapPin, MessageCircle, Plus, Send, Trees, Zap } from 'lucide-react';
+import {
+    Globe,
+    MapPin,
+    MessageCircle,
+    Plus,
+    Send,
+    Trees,
+    Zap,
+} from 'lucide-react';
 
+import heroPattern from '@/assets/hero-pattern.jpg';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { novedades } from '@/routes';
-import heroPattern from '@/assets/hero-pattern.jpg';
 
 type Stats = {
     departamentos: number;
@@ -74,13 +82,21 @@ export default function Landing({ stats }: Props) {
                 <section className="relative flex min-h-[80vh] items-center justify-center overflow-hidden bg-gradient-to-br from-primary/10 via-background to-primary/5 px-4">
                     <div
                         className="absolute inset-0 opacity-80"
-                        style={{ backgroundImage: `url('${heroPattern}')`, backgroundSize: 'cover' }}
+                        style={{
+                            backgroundImage: `url('${heroPattern}')`,
+                            backgroundSize: 'cover',
+                        }}
                     />
-                    <div className="relative z-10 mx-auto max-w-4xl text-center  p-4">
-                        <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl text-shadow-sm">
+                    <div className="relative z-10 mx-auto max-w-4xl p-4 text-center">
+                        <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground text-shadow-sm sm:text-5xl lg:text-6xl">
                             {t('hero_title')}
                         </h1>
-                        <p className="mb-8 text-lg text-muted-foreground sm:text-xl font-bold" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+                        <p
+                            className="mb-8 text-lg font-bold text-muted-foreground sm:text-xl"
+                            style={{
+                                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                            }}
+                        >
                             {t('hero_subtitle')}
                         </p>
                         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -100,10 +116,11 @@ export default function Landing({ stats }: Props) {
 
                 {/* Stats Section */}
                 <section className="border-y bg-muted/30 py-12">
-                    <div className="mx-auto grid max-w-5xl grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-4">
+                    <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
                         <div className="text-center">
                             <div className="text-3xl font-bold text-primary">
-                                {stats.departamentos} <Plus className="inline-block h-4 w-4 " />
+                                {stats.departamentos}{' '}
+                                <Plus className="inline-block h-4 w-4" />
                             </div>
                             <div className="text-sm text-muted-foreground">
                                 {t('stats_departamentos')}
@@ -111,7 +128,8 @@ export default function Landing({ stats }: Props) {
                         </div>
                         <div className="text-center">
                             <div className="text-3xl font-bold text-primary">
-                                {stats.nodos} <Plus className="inline-block h-4 w-4 " />
+                                {stats.nodos}{' '}
+                                <Plus className="inline-block h-4 w-4" />
                             </div>
                             <div className="text-sm text-muted-foreground">
                                 {t('stats_nodos')}
@@ -119,7 +137,8 @@ export default function Landing({ stats }: Props) {
                         </div>
                         <div className="text-center">
                             <div className="text-3xl font-bold text-primary">
-                                {stats.sitios} <Plus className="inline-block h-4 w-4 " />
+                                {stats.sitios}{' '}
+                                <Plus className="inline-block h-4 w-4" />
                             </div>
                             <div className="text-sm text-muted-foreground">
                                 {t('stats_sitios')}
@@ -315,10 +334,11 @@ export default function Landing({ stats }: Props) {
 
             <a
                 href={novedades().url}
-                className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-primary px-6 py-5 text-sm font-medium text-primary-foreground shadow-lg transition-opacity duration-300 hover:bg-primary/90 ${showFloatingButton
-                    ? 'opacity-100'
-                    : 'pointer-events-none opacity-0'
-                    }`}
+                className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-primary px-6 py-5 text-sm font-medium text-primary-foreground shadow-lg transition-opacity duration-300 hover:bg-primary/90 ${
+                    showFloatingButton
+                        ? 'opacity-100'
+                        : 'pointer-events-none opacity-0'
+                }`}
             >
                 {t('hero_cta')}
             </a>

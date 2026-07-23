@@ -1,5 +1,4 @@
 import type { Auth } from '@/types/auth';
-import { number } from 'motion/react';
 
 declare module '@inertiajs/core' {
     export interface InertiaConfig {

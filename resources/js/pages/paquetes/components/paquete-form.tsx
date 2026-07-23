@@ -1,4 +1,5 @@
-import { forwardRef, SubmitEventHandler, useEffect, useMemo, useState } from 'react';
+import type { SubmitEventHandler } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -20,25 +21,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { Option } from '@/types/global';
-
-interface Sitio {
-    id: number;
-    nombre: string;
-    localidad_id: number;
-}
-
-interface Evento {
-    id: number;
-    nombre: string;
-    localidad_id: number;
-}
-
-interface CategoriaOption {
-    value: string;
-    label: string;
-}
-
+import type { Option } from '@/types/global';
 
 export interface SitioOpcion extends Option {
     localidad_id: number;
@@ -106,7 +89,7 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
         },
         ref,
     ) {
-        console.log('sitios', sitios);
+
         const sitiosFiltrados = useMemo(() => {
             return sitios.filter(
                 (s) => s.localidad_id === Number(data.localidad_id),
@@ -127,12 +110,13 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                         <Combobox
                             items={localidades}
                             value={localidades.find(
-                                (l) =>
-                                    l.value ===
-                                    Number(data.localidad_id),
+                                (l) => l.value === Number(data.localidad_id),
                             )}
                             onValueChange={(v) => {
-                                setData('localidad_id', v ? Number(v.value) : null);
+                                setData(
+                                    'localidad_id',
+                                    v ? Number(v.value) : null,
+                                );
                             }}
                         >
                             <ComboboxInput
@@ -165,7 +149,11 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                             value={data.asignar_a}
                             onValueChange={(value) => {
                                 if (value) {
-                                    setData('asignar_a', value as 'sitio' | 'evento' | 'nuevo_evento');
+                                    setData(
+                                        'asignar_a',
+                                        value as
+                                        'sitio' | 'evento' | 'nuevo_evento',
+                                    );
                                 }
                             }}
                             variant="outline"
@@ -191,14 +179,15 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                         <div className="grid gap-2">
                             <Label>Sitio</Label>
                             <Combobox
-                                items={sitios}
+                                items={sitiosFiltrados}
                                 value={sitios.find(
-                                    (s) =>
-                                        s.value ===
-                                        Number(data.sitio_id),
+                                    (s) => s.value === Number(data.sitio_id),
                                 )}
                                 onValueChange={(v) => {
-                                    setData('sitio_id', v ? Number(v.value) : null);
+                                    setData(
+                                        'sitio_id',
+                                        v ? Number(v.value) : null,
+                                    );
                                 }}
                             >
                                 <ComboboxInput
@@ -222,7 +211,6 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                                 </ComboboxContent>
                             </Combobox>
                             <InputError message={errors['sitio_id']} />
-
                         </div>
                     )}
 
@@ -230,14 +218,15 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                         <div className="grid gap-2">
                             <Label>Evento</Label>
                             <Combobox
-                                items={eventos}
+                                items={eventosFiltrados}
                                 value={eventos.find(
-                                    (e) =>
-                                        e.value ===
-                                        Number(data.evento_id),
+                                    (e) => e.value === Number(data.evento_id),
                                 )}
                                 onValueChange={(v) => {
-                                    setData('evento_id', v ? Number(v.value) : null);
+                                    setData(
+                                        'evento_id',
+                                        v ? Number(v.value) : null,
+                                    );
                                 }}
                             >
                                 <ComboboxInput
@@ -277,10 +266,15 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                                     id="evento_nombre"
                                     value={data.evento_data?.nombre || ''}
                                     onChange={(e) =>
-                                        setData('evento_data', data.evento_data ? {
-                                            ...data.evento_data,
-                                            nombre: e.target.value,
-                                        } : null)
+                                        setData(
+                                            'evento_data',
+                                            data.evento_data
+                                                ? {
+                                                    ...data.evento_data,
+                                                    nombre: e.target.value,
+                                                }
+                                                : null,
+                                        )
                                     }
                                     placeholder="Nombre del evento"
                                     required
@@ -297,10 +291,16 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                                     id="evento_descripcion"
                                     value={data.evento_data?.descripcion ?? ''}
                                     onChange={(e) =>
-                                        setData('evento_data', data.evento_data ? {
-                                            ...data.evento_data,
-                                            descripcion: e.target.value,
-                                        } : null)
+                                        setData(
+                                            'evento_data',
+                                            data.evento_data
+                                                ? {
+                                                    ...data.evento_data,
+                                                    descripcion:
+                                                        e.target.value,
+                                                }
+                                                : null,
+                                        )
                                     }
                                     placeholder="Descripción"
                                 />
@@ -315,10 +315,15 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                                         type="date"
                                         value={data.evento_data?.fecha ?? ''}
                                         onChange={(e) =>
-                                            setData('evento_data', data.evento_data ? {
-                                                ...data.evento_data,
-                                                fecha: e.target.value,
-                                            } : null)
+                                            setData(
+                                                'evento_data',
+                                                data.evento_data
+                                                    ? {
+                                                        ...data.evento_data,
+                                                        fecha: e.target.value,
+                                                    }
+                                                    : null,
+                                            )
                                         }
                                         required
                                     />
@@ -335,24 +340,37 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                                         type="time"
                                         value={data.evento_data?.inicio ?? ''}
                                         onChange={(e) =>
-                                            setData('evento_data', data.evento_data ? {
-                                                ...data.evento_data,
-                                                inicio: e.target.value,
-                                            } : null)
+                                            setData(
+                                                'evento_data',
+                                                data.evento_data
+                                                    ? {
+                                                        ...data.evento_data,
+                                                        inicio: e.target
+                                                            .value,
+                                                    }
+                                                    : null,
+                                            )
                                         }
                                     />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="evento_fin">Hora de fin</Label>
+                                    <Label htmlFor="evento_fin">
+                                        Hora de fin
+                                    </Label>
                                     <Input
                                         id="evento_fin"
                                         type="time"
                                         value={data.evento_data?.fin ?? ''}
                                         onChange={(e) =>
-                                            setData('evento_data', data.evento_data ? {
-                                                ...data.evento_data,
-                                                fin: e.target.value,
-                                            } : null)
+                                            setData(
+                                                'evento_data',
+                                                data.evento_data
+                                                    ? {
+                                                        ...data.evento_data,
+                                                        fin: e.target.value,
+                                                    }
+                                                    : null,
+                                            )
                                         }
                                     />
                                 </div>
@@ -362,32 +380,54 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                                     <Label htmlFor="evento_calle">Calle</Label>
                                     <Input
                                         id="evento_calle"
-                                        value={data.evento_data?.domicilio_calle ?? ''}
+                                        value={
+                                            data.evento_data?.domicilio_calle ??
+                                            ''
+                                        }
                                         onChange={(e) =>
-                                            setData('evento_data', data.evento_data ? {
-                                                ...data.evento_data,
-                                                domicilio_calle: e.target.value,
-                                            } : null)
+                                            setData(
+                                                'evento_data',
+                                                data.evento_data
+                                                    ? {
+                                                        ...data.evento_data,
+                                                        domicilio_calle:
+                                                            e.target.value,
+                                                    }
+                                                    : null,
+                                            )
                                         }
                                         placeholder="Dirección"
                                         required
                                     />
                                     <InputError
                                         message={
-                                            errors['evento_data.domicilio_calle']
+                                            errors[
+                                            'evento_data.domicilio_calle'
+                                            ]
                                         }
                                     />
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="evento_numero">Número</Label>
+                                    <Label htmlFor="evento_numero">
+                                        Número
+                                    </Label>
                                     <Input
                                         id="evento_numero"
-                                        value={data.evento_data?.domicilio_numero ?? ''}
+                                        value={
+                                            data.evento_data
+                                                ?.domicilio_numero ?? ''
+                                        }
                                         onChange={(e) =>
-                                            setData('evento_data', data.evento_data ? {
-                                                ...data.evento_data,
-                                                domicilio_numero: e.target.value,
-                                            } : null)
+                                            setData(
+                                                'evento_data',
+                                                data.evento_data
+                                                    ? {
+                                                        ...data.evento_data,
+                                                        domicilio_numero:
+                                                            e.target.value,
+                                                    }
+                                                    : null,
+                                            )
                                         }
                                         placeholder="Número"
                                     />
@@ -413,7 +453,9 @@ export const PaqueteForm = forwardRef<HTMLFormElement, Props>(
                         <Input
                             id="descripcion"
                             value={data.descripcion}
-                            onChange={(e) => setData('descripcion', e.target.value)}
+                            onChange={(e) =>
+                                setData('descripcion', e.target.value)
+                            }
                             placeholder="Descripción del paquete"
                         />
                         <InputError message={errors.descripcion} />
